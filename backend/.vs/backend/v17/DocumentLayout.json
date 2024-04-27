@@ -1,0 +1,345 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\statisticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\statisticcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\clickblogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\clickblogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\medicinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\medicinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\controllers\\prescriptioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\blog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\blog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\clickblog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\clickblog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\medicine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\medicine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\prescription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\schedule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\migrations\\20240425154343_v1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\migrations\\20240425154343_v1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|c:\\users\\khoi\\onedrive\\documents\\greenwich\\top-up\\1682 - final\\final project\\backend\\backend\\models\\regulations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0532848-E0D4-4F5D-9A8F-FE1D38A8D12F}|backend\\backend.csproj|solutionrelative:backend\\models\\regulations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClickBlogController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\ClickBlogController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\ClickBlogController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\ClickBlogController.cs",
+              "RelativeToolTip": "backend\\Controllers\\ClickBlogController.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAAEMAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-27T05:41:02.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StatisticController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\StatisticController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\StatisticController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\StatisticController.cs",
+              "RelativeToolTip": "backend\\Controllers\\StatisticController.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAADsAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T14:00:34.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PrescriptionController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\PrescriptionController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\PrescriptionController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\PrescriptionController.cs",
+              "RelativeToolTip": "backend\\Controllers\\PrescriptionController.cs",
+              "ViewState": "AQIAAGgAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T04:22:36.352Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\AppointmentController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "backend\\Controllers\\AppointmentController.cs",
+              "ViewState": "AQIAAJUAAAAAAAAAAAAAwKwAAADNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T04:22:28.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Program.cs",
+              "RelativeDocumentMoniker": "backend\\Program.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Program.cs",
+              "RelativeToolTip": "backend\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T04:05:46.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\appsettings.json",
+              "RelativeDocumentMoniker": "backend\\appsettings.json",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\appsettings.json",
+              "RelativeToolTip": "backend\\appsettings.json",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-04-26T04:05:42.349Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Context\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "backend\\Context\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Context\\AppDbContext.cs",
+              "RelativeToolTip": "backend\\Context\\AppDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADEAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T04:02:50.489Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "20240425154343_v1.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Migrations\\20240425154343_v1.cs",
+              "RelativeDocumentMoniker": "backend\\Migrations\\20240425154343_v1.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Migrations\\20240425154343_v1.cs",
+              "RelativeToolTip": "backend\\Migrations\\20240425154343_v1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T03:59:14.444Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\User.cs",
+              "RelativeToolTip": "backend\\Models\\User.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAACsAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:14:50.562Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Schedule.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Schedule.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Schedule.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Schedule.cs",
+              "RelativeToolTip": "backend\\Models\\Schedule.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:13:22.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Room.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Room.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Room.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Room.cs",
+              "RelativeToolTip": "backend\\Models\\Room.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:10:56.467Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Role.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Role.cs",
+              "RelativeToolTip": "backend\\Models\\Role.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:09:58.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Appointment.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Appointment.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Appointment.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Appointment.cs",
+              "RelativeToolTip": "backend\\Models\\Appointment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAUwDQAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T15:48:37.173Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BlogController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\BlogController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\BlogController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\BlogController.cs",
+              "RelativeToolTip": "backend\\Controllers\\BlogController.cs",
+              "ViewState": "AQIAACgAAAAAAAAAAAAawDsAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T07:45:38.343Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Regulations.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Regulations.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Regulations.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Regulations.cs",
+              "RelativeToolTip": "backend\\Models\\Regulations.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:08:11.975Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MedicineController.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\MedicineController.cs",
+              "RelativeDocumentMoniker": "backend\\Controllers\\MedicineController.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Controllers\\MedicineController.cs",
+              "RelativeToolTip": "backend\\Controllers\\MedicineController.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAqwGwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T04:22:42.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Prescription.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Prescription.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Prescription.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Prescription.cs",
+              "RelativeToolTip": "backend\\Models\\Prescription.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:04:30.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Medicine.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Medicine.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Medicine.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Medicine.cs",
+              "RelativeToolTip": "backend\\Models\\Medicine.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAACgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T16:01:09.955Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ClickBlog.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\ClickBlog.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\ClickBlog.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\ClickBlog.cs",
+              "RelativeToolTip": "backend\\Models\\ClickBlog.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T15:58:51.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Blog.cs",
+              "DocumentMoniker": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Blog.cs",
+              "RelativeDocumentMoniker": "backend\\Models\\Blog.cs",
+              "ToolTip": "C:\\Users\\KHOI\\OneDrive\\Documents\\Greenwich\\Top-Up\\1682 - FINAL\\Final Project\\backend\\backend\\Models\\Blog.cs",
+              "RelativeToolTip": "backend\\Models\\Blog.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T15:54:27.689Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
