@@ -1,0 +1,205 @@
+<main>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg" id="navbar">
+    <div class="container-fluid">
+      <a routerLink="/" class="navbar-brand" id="logo"
+        ><span id="span1">KT-eHospital</span></a
+      >
+      <button
+        class="btn-bar navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span
+          ><i class="uil uil-bars" style="color: white" alt="" width="30px"></i
+        ></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/disease-prediction">Prediction</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/doctor-search">Doctor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/blog-search">Blog</a>
+          </li>
+          <li *ngIf="role == 'Patient'" class="nav-item">
+            <a
+              (click)="onCheckBook()"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="isBook"
+              class="nav-link active rounded-3"
+              style="
+                background-color: #fff;
+                color: #009bab;
+                width: 185px;
+                height: 43px;
+                text-align: center;
+                cursor: pointer;
+              "
+              >Book Appointment</a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li *ngIf="!role" class="nav-item">
+            <a class="nav-link" routerLink="/signin">Sign In</a>
+          </li>
+          <div *ngIf="!role" style="border-left: 2px solid white"></div>
+          <li *ngIf="!role" class="nav-item m-0">
+            <a class="nav-link" routerLink="/signup">Sign Up</a>
+          </li>
+
+          <li *ngIf="role" class="nav-item">
+            <img
+              (click)="onNavigatePage()"
+              class="rounded-circle me-2"
+              [src]="imgUrl"
+              width="45"
+              height="45"
+              style="cursor: pointer"
+            />
+          </li>
+          <li *ngIf="role" class="nav-item d-flex">
+            <div style="border-left: 2px solid white">
+              <input
+                type="submit"
+                (click)="onSignOut()"
+                class="nav-link border-2"
+                value="Sign Out"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- navbar -->
+</main>
+
+<div
+  class="modal fade"
+  id="exampleModalCenter"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div
+      class="modal-content"
+      style="box-shadow: 20px 20px 80px rgb(218, 218, 218)"
+    >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #009bab">
+          Book Appointment
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group pt-3">
+          <div class="input-field">
+            <form [formGroup]="appointmentForm">
+              <div class="input-box">
+                <label
+                  for="birthday"
+                  style="font-weight: 500; color: var(--grey-color)"
+                  >Choose Date</label
+                >
+                <input
+                  formControlName="appointment_time"
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  (change)="handleChooseDate($event)"
+                />
+                <small
+                  *ngIf="
+                    appointmentForm.controls['appointment_time'].dirty &&
+                      appointmentForm.hasError('required', 'appointment_time');
+                    else checkDate
+                  "
+                  class="text-danger"
+                  >Appointment time is required</small
+                >
+                <ng-template #checkDate>
+                  <small
+                    *ngIf="
+                      appointmentForm.controls['appointment_time'].dirty &&
+                      appointmentForm.hasError('checkDate', 'appointment_time')
+                    "
+                    class="text-danger"
+                    >Please choose a future date</small
+                  >
+                </ng-template>
+              </div>
+            </form>
+            <p
+              *ngIf="
+                chooseDate != '' && quantityBooked > 0 && !isChooseDateError;
+                else outOfNumberBooked
+              "
+              style="color: #009bab"
+            >
+              The remaining number of available appointments for booking
+              {{ chooseDate }} is {{ quantityBooked }}. Book Appointment Now
+            </p>
+            <ng-template #outOfNumberBooked>
+              <p
+                *ngIf="
+                  chooseDate != '' && quantityBooked <= 0 && !isChooseDateError;
+                  else chooseDateError
+                "
+                style="color: red"
+              >
+                The remaining appointments available for {{ chooseDate }} have
+                been exhausted. Please choose another day.
+              </p>
+            </ng-template>
+            <ng-template #chooseDateError>
+              <p style="color: rgb(218, 218, 15)">
+                To ensure the best quality of service for patients, please book
+                your appointment at least one day in advance
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          (click)="onBook()"
+          id="btnClose"
+          type="button"
+          class="btn btn-secondary"
+          style="border: none; background-color: #009bab"
+          [attr.data-bs-dismiss]="isBookInvalid"
+        >
+          Book Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

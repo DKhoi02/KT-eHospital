@@ -1,0 +1,307 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/pharmacist-confirm-appointment">
+              <span><i class="uil uil-file-check"></i></span>
+              <small>Confirm Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/pharmacist-medicine">
+              <span><i class="uil uil-capsule"></i></span>
+              <small>Medicine</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/pharmacist-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add New Medicine</h1>
+        <small>Home / Medicine Management / Add New Medicine</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/pharmacist-medicine"
+                style="background-color: #009bab"
+              >
+                Medicine Management
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center">
+            <div class="container">
+              <div class="content">
+                <form [formGroup]="AddNewMedicineForm">
+                  <div class="user-details">
+                    <div class="input-box">
+                      <span class="details">Medicine Name</span>
+                      <input
+                        formControlName="medicine_name"
+                        type="text"
+                        placeholder="Enter Medicine Name"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewMedicineForm.controls['medicine_name'].dirty &&
+                            AddNewMedicineForm.hasError(
+                              'required',
+                              'medicine_name'
+                            );
+                          else lengthName
+                        "
+                        class="text-danger"
+                        >Medicine Name is required</small
+                      >
+                      <ng-template #lengthName>
+                        <small
+                          *ngIf="
+                            AddNewMedicineForm.controls['medicine_name']
+                              .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'maxlength',
+                              'medicine_name'
+                            )
+                          "
+                          class="text-danger"
+                        >
+                          Medicine Name can't exceed 100 characters</small
+                        >
+                      </ng-template>
+                    </div>
+                    <div class="input-box">
+                      <span class="details">Medicine Quantity</span>
+                      <input
+                        formControlName="medicine_quantity"
+                        type="text"
+                        placeholder="Enter Medicine Quantity"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewMedicineForm.controls['medicine_quantity']
+                            .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'required',
+                              'medicine_quantity'
+                            );
+                          else checkQuantity
+                        "
+                        class="text-danger"
+                        >Medicine Quantity is required</small
+                      >
+                      <ng-template #checkQuantity>
+                        <small
+                          *ngIf="
+                            AddNewMedicineForm.controls['medicine_quantity']
+                              .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'isNotNumber',
+                              'medicine_quantity'
+                            )
+                          "
+                          class="text-danger"
+                          >Please enter Medicine Quantity is a number more than
+                          zero</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Medicine Price (VND)</span>
+                      <input
+                        formControlName="medicine_price"
+                        type="text"
+                        placeholder="Enter Medicine Price"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewMedicineForm.controls['medicine_price'].dirty &&
+                            AddNewMedicineForm.hasError(
+                              'required',
+                              'medicine_price'
+                            );
+                          else checkPrice
+                        "
+                        class="text-danger"
+                        >Medicine price is required</small
+                      >
+                      <ng-template #checkPrice>
+                        <small
+                          *ngIf="
+                            AddNewMedicineForm.controls['medicine_price']
+                              .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'isNotNumber',
+                              'medicine_price'
+                            )
+                          "
+                          class="text-danger"
+                          >Please enter Medicine Price is a number more than
+                          zero</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Medicine Description</span>
+                      <textarea
+                        formControlName="medicine_description"
+                        type="text"
+                        placeholder="Enter Medicine Description"
+                      ></textarea>
+                      <small
+                        *ngIf="
+                          AddNewMedicineForm.controls['medicine_description']
+                            .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'required',
+                              'medicine_description'
+                            );
+                          else lengthDescription
+                        "
+                        class="text-danger"
+                        >Medicine Description is required</small
+                      >
+                      <ng-template #lengthDescription>
+                        <small
+                          *ngIf="
+                            AddNewMedicineForm.controls['medicine_description']
+                              .dirty &&
+                            AddNewMedicineForm.hasError(
+                              'maxlength',
+                              'medicine_description'
+                            )
+                          "
+                          class="text-danger"
+                        >
+                          Medicine Description can't exceed 100
+                          characters</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Medicine Image</span>
+
+                      <input
+                        (change)="handleFileMedicine($event)"
+                        type="file"
+                        accept="image/*"
+                        id="medicine-image"
+                        style="z-index: -1; position: absolute; opacity: 0"
+                      />
+                      <label for="medicine-image">
+                        <img
+                          class="img-account-profile mb-2"
+                          style="height: 15rem; width: 15rem"
+                          src="{{ imgMedicine }}"
+                          alt=""
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="gender-box">
+                    <label>Status</label>
+                    <div class="gender-option">
+                      <div class="user_gender">
+                        <input
+                          type="radio"
+                          id="check-male"
+                          formControlName="medicine_status"
+                          value="Unavailable"
+                        />
+                        <label for="check-male" class="checkMale"
+                          >Unavailable</label
+                        >
+                      </div>
+                      <div class="gender">
+                        <input
+                          type="radio"
+                          id="check-female"
+                          formControlName="medicine_status"
+                          value="Available"
+                        />
+                        <label for="check-female" class="checkFemale"
+                          >Available</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="button">
+                    <input
+                      (click)="onAddNewMedicine()"
+                      type="submit"
+                      value="Add New Medicine"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <main> -->
+      </div>
+    </main>
+  </div>
+</body>

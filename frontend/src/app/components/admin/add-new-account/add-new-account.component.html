@@ -1,0 +1,415 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-account" class="active">
+              <span><i class="uil uil-user"></i></span>
+              <small>Account</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-room">
+              <span><i class="uil uil-bed-double"></i></span>
+              <small>Room</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-system">
+              <span><i class="uil uil-setting"></i></span>
+              <small>System</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add New Account</h1>
+        <small>Home / Account Management / Add New Account</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/admin-account"
+                style="background-color: #009bab"
+              >
+                Account Management
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center">
+            <div class="container">
+              <div class="content">
+                <form [formGroup]="AddNewAccountForm">
+                  <div class="user-details">
+                    <div class="input-box">
+                      <span class="details">Full Name</span>
+                      <input
+                        formControlName="user_fullName"
+                        type="text"
+                        placeholder="Enter Full Name"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_fullName'].dirty &&
+                          AddNewAccountForm.hasError(
+                            'required',
+                            'user_fullName'
+                          )
+                        "
+                        class="text-danger"
+                        >Full Name is required</small
+                      >
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Email</span>
+                      <input
+                        formControlName="user_email"
+                        type="text"
+                        placeholder="Enter Email"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_email'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'required',
+                              'user_email'
+                            );
+                          else emailFormat
+                        "
+                        class="text-danger"
+                        >Email is required</small
+                      >
+
+                      <ng-template #emailFormat>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_email'].dirty &&
+                            AddNewAccountForm.hasError('pattern', 'user_email')
+                          "
+                          class="text-danger"
+                          >Email is incorrect format. Please enter again</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Address</span>
+                      <input
+                        formControlName="user_address"
+                        type="text"
+                        placeholder="Enter Address"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_address'].dirty &&
+                          AddNewAccountForm.hasError('required', 'user_address')
+                        "
+                        class="text-danger"
+                        >Address is required</small
+                      >
+                    </div>
+
+                    <div class="input-box">
+                      <span class="details">Phone Number</span>
+                      <input
+                        formControlName="user_phoneNumber"
+                        type="text"
+                        placeholder="Enter Phone Number"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_phoneNumber']
+                            .dirty &&
+                            AddNewAccountForm.hasError(
+                              'required',
+                              'user_phoneNumber'
+                            );
+                          else phoneNumberFormat
+                        "
+                        class="text-danger"
+                        >Phone Number is required</small
+                      >
+                      <ng-template #phoneNumberFormat>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_phoneNumber']
+                              .dirty &&
+                            AddNewAccountForm.hasError(
+                              'pattern',
+                              'user_phoneNumber'
+                            )
+                          "
+                          class="text-danger"
+                          >Phone number with 03, 05, 07, 08, or 09 and remaing 8
+                          digit with 0-9</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <label
+                        for="birthday"
+                        style="font-weight: 500; color: var(--grey-color)"
+                        >Birthday</label
+                      >
+                      <input
+                        formControlName="user_birthDate"
+                        type="date"
+                        id="birthday"
+                        name="birthday"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_birthDate'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'required',
+                              'user_birthDate'
+                            );
+                          else birthDateFormat
+                        "
+                        class="text-danger"
+                        >Birthdate is required</small
+                      >
+
+                      <ng-template #birthDateFormat>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_birthDate']
+                              .dirty &&
+                            AddNewAccountForm.hasError(
+                              'futureDate',
+                              'user_birthDate'
+                            )
+                          "
+                          class="text-danger"
+                          >Birth date cannot be in the future</small
+                        >
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <select
+                        (change)="onSelectRole($event)"
+                        formControllName="user_role_id"
+                        id="select-option"
+                        class="form-select"
+                        aria-label="Default select example"
+                        style="
+                          height: 47px;
+                          margin-top: 22px;
+                          border: 2px solid #009bab;
+                          padding-left: 17px;
+                        "
+                      >
+                        <option value="" selected>Choose Role</option>
+                        <option
+                          *ngFor="let r of lstRoles"
+                          value="{{ r.role_id }}"
+                        >
+                          {{ r.role_name }}
+                        </option>
+                      </select>
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_role_id'].dirty &&
+                          AddNewAccountForm.hasError('required', 'user_role_id')
+                        "
+                        class="text-danger"
+                        >*Role is required</small
+                      >
+                    </div>
+
+                    <div class="input-box">
+                      <label
+                        for="birthday"
+                        style="font-weight: 500; color: var(--grey-color)"
+                        >Password</label
+                      >
+                      <input
+                        formControlName="user_password"
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter Password"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_password'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'required',
+                              'user_password'
+                            );
+                          else passwordFormat
+                        "
+                        class="text-danger"
+                        >Password is required</small
+                      >
+                      <ng-template #passwordFormat>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_password'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'pattern',
+                              'user_password'
+                            )
+                          "
+                          class="text-danger"
+                          >Password must contain at least 8 or more letters
+                          <br />
+                          Password must contain at least one number
+                          <br />Password must contain at least one uppercase
+                          letter <br />Password must contain at least one
+                          lowercase letter <br />Password must contain at least
+                          one special letter
+                        </small>
+                      </ng-template>
+                    </div>
+
+                    <div class="input-box">
+                      <label
+                        for="birthday"
+                        style="font-weight: 500; color: var(--grey-color)"
+                        >Confirm Password</label
+                      >
+                      <input
+                        type="password"
+                        class="password"
+                        placeholder="Enter Confirm Password"
+                        autocomplete="off"
+                        formControlName="user_confirmPassword"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewAccountForm.controls['user_confirmPassword']
+                            .dirty &&
+                            AddNewAccountForm.hasError(
+                              'required',
+                              'user_confirmPassword'
+                            );
+                          else confirmPasswordFormat
+                        "
+                        class="text-danger"
+                        >Confirm Password is required</small
+                      >
+                      <ng-template #confirmPasswordFormat>
+                        <small
+                          *ngIf="
+                            this.AddNewAccountForm.get('user_confirmPassword')
+                              ?.value !==
+                            this.AddNewAccountForm.get('user_password')?.value
+                          "
+                          class="text-danger"
+                          >Password and Confirm Password are not match</small
+                        >
+                      </ng-template>
+                    </div>
+                  </div>
+
+                  <div class="gender-box">
+                    <label>Gender</label>
+                    <div class="gender-option">
+                      <div class="user_gender">
+                        <input
+                          type="radio"
+                          id="check-male"
+                          formControlName="user_gender"
+                          value="Male"
+                        />
+                        <label for="check-male" class="checkMale">Male</label>
+                      </div>
+                      <div class="gender">
+                        <input
+                          type="radio"
+                          id="check-female"
+                          formControlName="user_gender"
+                          value="Female"
+                        />
+                        <label for="check-female" class="checkFemale"
+                          >Female</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="button">
+                    <input
+                      (click)="onAddNewAccount()"
+                      type="submit"
+                      value="Add New Account"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <main> -->
+      </div>
+    </main>
+  </div>
+</body>

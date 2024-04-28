@@ -1,0 +1,260 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-appointment">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-blog">
+              <span><i class="uil uil-document-layout-left"></i></span>
+              <small>Blog</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-statistic">
+              <span><i class="uil uil-chart-pie-alt"></i></span>
+              <small>Statistic</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-revenue-prediction">
+              <span><i class="uil uil-comparison"></i></span>
+              <small>Revenue Prediction</small>
+            </a>
+          </li>
+          <li>
+            <a
+              class="active"
+              style="cursor: pointer"
+              routerLink="/manager-profile"
+            >
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Profile</h1>
+        <small>Home / Profile</small>
+      </div>
+
+      <div class="page-content">
+        <!-- <main> -->
+        <div class="container">
+          <div class="content">
+            <form [formGroup]="profileForm">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Full Name</span>
+                  <input
+                    formControlName="user_fullName"
+                    type="text"
+                    placeholder="Enter Full Name"
+                  />
+                  <small
+                    *ngIf="
+                      profileForm.controls['user_fullName'].dirty &&
+                      profileForm.hasError('required', 'user_fullName')
+                    "
+                    class="text-danger"
+                    >Full Name is required</small
+                  >
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Email</span>
+                  <input
+                    formControlName="user_email"
+                    type="text"
+                    placeholder="Enter Email"
+                  />
+                  <small
+                    *ngIf="
+                      profileForm.controls['user_email'].dirty &&
+                        profileForm.hasError('required', 'user_email');
+                      else emailFormat
+                    "
+                    class="text-danger"
+                    >Email is required</small
+                  >
+
+                  <ng-template #emailFormat>
+                    <small
+                      *ngIf="
+                        profileForm.controls['user_email'].dirty &&
+                        profileForm.hasError('pattern', 'user_email')
+                      "
+                      class="text-danger"
+                      >Email is incorrect format. Please enter again</small
+                    >
+                  </ng-template>
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Address</span>
+                  <input
+                    formControlName="user_address"
+                    type="text"
+                    placeholder="Enter Address"
+                  />
+                  <small
+                    *ngIf="
+                      profileForm.controls['user_address'].dirty &&
+                      profileForm.hasError('required', 'user_address')
+                    "
+                    class="text-danger"
+                    >Address is required</small
+                  >
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Phone Number</span>
+                  <input
+                    formControlName="user_phoneNumber"
+                    type="text"
+                    placeholder="Enter Phone Number"
+                  />
+                  <small
+                    *ngIf="
+                      profileForm.controls['user_phoneNumber'].dirty &&
+                        profileForm.hasError('required', 'user_phoneNumber');
+                      else phoneNumberFormat
+                    "
+                    class="text-danger"
+                    >Phone Number is required</small
+                  >
+                  <ng-template #phoneNumberFormat>
+                    <small
+                      *ngIf="
+                        profileForm.controls['user_phoneNumber'].dirty &&
+                        profileForm.hasError('pattern', 'user_phoneNumber')
+                      "
+                      class="text-danger"
+                      >Phone number with 03, 05, 07, 08, or 09 and remaing 8
+                      digit with 0-9</small
+                    >
+                  </ng-template>
+                </div>
+
+                <div class="input-box">
+                  <label
+                    for="birthday"
+                    style="font-weight: 500; color: var(--grey-color)"
+                    >Birthday:</label
+                  >
+                  <input
+                    formControlName="user_birthDate"
+                    type="date"
+                    id="birthday"
+                    name="birthday"
+                  />
+                  <small
+                    *ngIf="
+                      profileForm.controls['user_birthDate'].dirty &&
+                        profileForm.hasError('required', 'user_birthDate');
+                      else birthDateFormat
+                    "
+                    class="text-danger"
+                    >Birthdate is required</small
+                  >
+
+                  <ng-template #birthDateFormat>
+                    <small
+                      *ngIf="
+                        profileForm.controls['user_birthDate'].dirty &&
+                        profileForm.hasError('futureDate', 'user_birthDate')
+                      "
+                      class="text-danger"
+                      >Birth date cannot be in the future</small
+                    >
+                  </ng-template>
+                </div>
+              </div>
+
+              <div class="gender-box">
+                <label>Gender</label>
+                <div class="gender-option">
+                  <div class="user_gender">
+                    <input
+                      type="radio"
+                      id="check-male"
+                      formControlName="user_gender"
+                      value="Male"
+                    />
+                    <label for="check-male" class="checkMale">Male</label>
+                  </div>
+                  <div class="gender">
+                    <input
+                      type="radio"
+                      id="check-female"
+                      formControlName="user_gender"
+                      value="Female"
+                    />
+                    <label for="check-female" class="checkFemale">Female</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button">
+                <input (click)="onSave()" type="submit" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

@@ -1,0 +1,51 @@
+<body>
+  <!-- Blog Start -->
+  <div class="container-fluid py-5">
+    <div class="container">
+      <div class="text-center mx-auto mb-5" style="max-width: 500px">
+        <h5
+          class="d-inline-block text-primary text-uppercase border-bottom border-5"
+        >
+          Blog Post
+        </h5>
+        <!-- <h1 class="display-4">Our Latest Medical Blog Posts</h1> -->
+        <div class="mx-auto" style="width: 100%; max-width: 600px">
+          <div class="input-group">
+            <input
+              (input)="onChange($event)"
+              type="text"
+              class="form-control w-50"
+              style="height: 60px; border-color: #009bab !important"
+              placeholder="Keyword"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-xl-4 col-lg-6" *ngFor="let blog of lstBlogs">
+          <div
+            class="bg-light rounded overflow-hidden"
+          >
+            <img (click)="onView(blog.blog_id)" class="img-fluid w-100" src="{{ blog.blog_img }}" alt="" />
+            <div class="p-4">
+              <a
+                class="h3 d-block mb-3"
+                style="text-decoration: none; color: #009bab"
+                href=""
+                >{{ blog.blog_title }}</a
+              >
+              <p class="m-0">{{ blog.blog_demo }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Blog End -->
+
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+    ><i class="bi bi-arrow-up"></i
+  ></a>
+</body>

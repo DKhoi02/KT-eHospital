@@ -1,0 +1,45 @@
+<div class="body">
+  <div class="container">
+    <div class="forms">
+      <div class="form login">
+        <span class="title">Sign In</span>
+        <form [formGroup]="SignInForm">
+          <div class="input-field">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              formControlName="user_email"
+            />
+            <i class="uil uil-envelope icon"></i>
+          </div>
+          <small *ngIf="SignInForm.controls['user_email'].dirty && SignInForm.hasError('required', 'user_email')" class="text-danger">Email is required</small>
+          <div class="input-field">
+            <input
+              type="password"
+              class="password"
+              placeholder="Enter your password"
+              formControlName="user_password"
+            />
+            <i class="uil uil-lock icon"></i>
+          </div>
+          <small *ngIf="SignInForm.controls['user_password'].dirty && SignInForm.hasError('required', 'user_password')" class="text-danger">Password is required</small>
+          <div class="checkbox-text">
+            <a routerLink="/forgotpassword" class="text">Forgot password?</a>
+          </div>
+
+          <div class="input-field button">
+            <input (click)="onSignIn()" type="submit" value="Sign In" />
+            <!-- #signInBtn -->
+          </div>
+        </form>
+
+        <div class="login-signup">
+          <span class="text"
+            >Not a member?
+            <a routerLink="/signup" class="text signup-link">Sign Up Now</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

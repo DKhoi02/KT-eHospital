@@ -1,0 +1,35 @@
+<body>
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="mb-5">
+                    <img class="img-fluid w-50 rounded mb-5" src="{{img}}" alt="">
+                    <h1 class="mb-4">{{title}}</h1>
+                    <p [innerHTML]="content"></p>
+                </div>
+                <!-- Blog Detail End -->
+            </div>
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4">
+                <!-- Recent Post Start -->
+                <div class="mb-5">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 mb-4" style="color: #009bab !important; border-color: #009bab !important;">Related Blogs</h4>
+                    <div class="d-flex rounded overflow-hidden mb-3" *ngFor="let r of lstRecomment">
+                        <img class="img-fluid" src="{{r.img}}" style="width: 100px; height: 100px; object-fit: cover;" alt="" (click)="onView(r.id)">
+                        <a href="" class="h5 d-flex align-items-center bg-light px-3 mb-0" style="color: #009bab; text-decoration: none;">{{r.title}}
+                        </a>
+                    </div>
+                </div>
+                <!-- Recent Post End -->
+            </div>
+            <!-- Sidebar End -->
+        </div>
+    </div>
+    <!-- Blog End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</body>

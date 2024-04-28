@@ -1,0 +1,45 @@
+<body>
+  <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5" style="color: #009bab !important; border-color: #009bab !important;">Find A Doctor</h5>
+            </div>
+            <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                <div class="input-group">
+                    <input (input)="onChange($event)" type="text" class="form-control w-50" style="height: 60px; border-color: #009bab !important;" placeholder="Keyword">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search End -->
+    <!-- Our Team Start -->
+  <div class="container-fluid py-5">
+    <div class="container">
+      <div class="row g-5">
+        <div style="cursor: pointer;"
+          *ngFor="let data of lstDoctors"
+          class="col-lg-6 team-item"
+          [routerLink]="['/doctor-detail', data.user_email]"
+        >
+          <div class="row g-0 bg-light rounded overflow-hidden">
+            <div class="col-12 col-sm-5 h-100 text-center">
+              <img
+                class="img-fluid h-100"
+                src="{{ data.user_image }}"
+                style="object-fit: cover"
+              />
+            </div>
+            <div class="col-12 col-sm-7 h-100 d-flex">
+              <div class="p-4 m-auto">
+                <h3>{{ data.user_fullName }}</h3>
+                <h6 class="fw-normal fst-italic mb-4" style="color: #009bab">
+                  {{ data.user_email }}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

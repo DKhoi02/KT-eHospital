@@ -1,0 +1,241 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/doctor-medical-examination">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Medical Examination</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/doctor-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/doctor-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add Medical Examination</h1>
+        <small
+          >Home / Medical Examination Management/ Add Medical Examination</small
+        >
+      </div>
+
+      <div class="analytics" style="display: flex; justify-content: center">
+        <div class="container" style="width: 60%">
+          <div class="content">
+            <form [formGroup]="patientForm">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Full Name</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ fullname }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Email</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ email }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Phone Number</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ phoneNumber }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">BirthDay</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ birthday }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Gender</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ gender }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Address</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ address }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box" style="flex: 1">
+                  <span class="details">Symptom</span>
+                  <textarea
+                    class="form-control"
+                    type="text"
+                    formControlName="appointment_symptom"
+                    style="border: 2px solid #009bab"
+                  ></textarea>
+                  <small
+                    *ngIf="
+                      patientForm.controls['appointment_symptom'].dirty &&
+                        patientForm.hasError('required', 'appointment_symptom');
+                      else lengthDescription
+                    "
+                    class="text-danger"
+                    >The Symptom is required</small
+                  >
+                  <ng-template #lengthDescription>
+                    <small
+                      *ngIf="
+                        patientForm.controls['appointment_symptom'].dirty &&
+                        patientForm.hasError('maxlength', 'appointment_symptom')
+                      "
+                      class="text-danger"
+                    >
+                      Symptom can't exceed 2000 characters</small
+                    >
+                  </ng-template>
+                </div>
+              </div>
+              <div class="button">
+                <input type="submit" (click)="onSave()" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/doctor-medical-examination"
+                style="background-color: #009bab"
+              >
+                Back To Medical Examination
+              </button>
+            </div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <table style="width: 70%" #tableRef>
+              <thead>
+                <tr>
+                  <th>MEDICAL EXAMINATION DAY</th>
+                  <th>PANDEMIC SITUATION</th>
+                </tr>
+              </thead>
+
+              <tbody
+                *ngFor="
+                  let data of lstHistory
+                    | paginate
+                      : { itemsPerPage: pageSize, currentPage: currentPage }
+                "
+              >
+                <tr [routerLink]="['/doctor-history-patient', data.id]">
+                  <td
+                    [innerHTML]="
+                      highlightKeyword((data.date | date : 'yyyy/MM/dd') || '')
+                    "
+                  ></td>
+                  <td [innerHTML]="highlightKeyword(data.content)"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <pagination-controls
+              (pageChange)="currentPage = $event"
+              variant="Circular"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

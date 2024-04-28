@@ -1,0 +1,137 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-account">
+              <span><i class="uil uil-user"></i></span>
+              <small>Account</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-room">
+              <span><i class="uil uil-bed-double"></i></span>
+              <small>Room</small>
+            </a>
+          </li>
+          <li>
+            <a
+              class="active"
+              style="cursor: pointer"
+              routerLink="/admin-system"
+            >
+              <span><i class="uil uil-setting"></i></span>
+              <small>System</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>System Management</h1>
+        <small>Home / System Management</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header"></div>
+
+          <div style="display: flex; justify-content: center">
+            <div class="container">
+              <div class="content">
+                <form [formGroup]="systemForm">
+                  <div class="user-details">
+                    <div class="input-box">
+                      <span class="details"
+                        >Quantity of Appoiment of One Day</span
+                      >
+                      <input
+                        formControlName="quantity_appointment"
+                        type="text"
+                        placeholder="Enter Quantity of Appoiment of One Day"
+                      />
+                      <small
+                        *ngIf="
+                          systemForm.controls['quantity_appointment'].dirty &&
+                          systemForm.hasError(
+                            'isNotNumber',
+                            'quantity_appointment'
+                          )
+                        "
+                        class="text-danger"
+                        >Number of Appoiment is number</small
+                      >
+                    </div>
+                  </div>
+                  <div class="button">
+                    <input (click)="onSave()" type="submit" value="Save" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <main> -->
+      </div>
+    </main>
+  </div>
+</body>

@@ -1,0 +1,238 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/manager-appointment">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-blog">
+              <span><i class="uil uil-document-layout-left"></i></span>
+              <small>Blog</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-statistic">
+              <span><i class="uil uil-chart-pie-alt"></i></span>
+              <small>Statistic</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-revenue-prediction">
+              <span><i class="uil uil-comparison"></i></span>
+              <small>Revenue Prediction</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/manager-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add New Blog</h1>
+        <small>Home / Blog Management / Add New Blog</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/manager-blog"
+                style="background-color: #009bab"
+              >
+                Blog Management
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center">
+            <div class="container">
+              <div class="content">
+                <form [formGroup]="AddNewBlogForm">
+                  <div class="user-details">
+                    <div class="input-box">
+                      <span class="details">Blog Title</span>
+                      <input
+                        formControlName="blog_title"
+                        type="text"
+                        placeholder="Enter Blog Title"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewBlogForm.controls['blog_title'].dirty &&
+                            AddNewBlogForm.hasError('required', 'blog_title');
+                          else lengthtitle
+                        "
+                        class="text-danger"
+                        >Blog title is required</small
+                      >
+                      <ng-template #lengthtitle>
+                        <small
+                          *ngIf="
+                            AddNewBlogForm.controls['blog_title'].dirty &&
+                            AddNewBlogForm.hasError('maxlength', 'blog_title')
+                          "
+                          class="text-danger"
+                        >
+                          Blog Title can't exceed 100 characters</small
+                        >
+                      </ng-template>
+                    </div>
+                    <div class="input-box">
+                      <span class="details">Blog Demo</span>
+                      <input
+                        formControlName="blog_demo"
+                        type="text"
+                        placeholder="Enter Blog Demo"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewBlogForm.controls['blog_demo'].dirty &&
+                            AddNewBlogForm.hasError('required', 'blog_demo');
+                          else lengthdemo
+                        "
+                        class="text-danger"
+                        >Blog demo is required</small
+                      >
+                      <ng-template #lengthdemo>
+                        <small
+                          *ngIf="
+                            AddNewBlogForm.controls['blog_demo'].dirty &&
+                            AddNewBlogForm.hasError('maxlength', 'blog_demo')
+                          "
+                          class="text-danger"
+                        >
+                          Blog Demo can't exceed 100 characters</small
+                        >
+                      </ng-template>
+                    </div>
+                    <div class="input-box" >
+                      <span class="details">Blog Content</span>
+                      <input
+                        type="file"
+                        placeholder="Enter Blog Content"
+                        style="border: none"
+                        (change)="handleFileContent($event)"
+                      />
+                    </div>
+                  </div>
+                  <div class="input-box">
+                    <span class="details">Blog Image</span>
+
+                    <input
+                      (change)="handleFileMedicine($event)"
+                      type="file"
+                      accept="image/*"
+                      id="medicine-image"
+                      style="z-index: -1; position: absolute; opacity: 0"
+                    />
+                    <label for="medicine-image">
+                      <img
+                        class="img-account-profile mb-2"
+                        style="height: 15rem; width: 15rem"
+                        src="{{ fileToImgs }}"
+                        alt=""
+                      />
+                    </label>
+                  </div>
+
+                  <div class="gender-box" style="margin-top: 2%;">
+                    <label>Status</label>
+                    <div class="gender-option">
+                      <div class="user_gender">
+                        <input
+                          type="radio"
+                          id="check-male"
+                          formControlName="blog_status"
+                          value="Private"
+                        />
+                        <label for="check-male" class="checkMale"
+                          >Private</label
+                        >
+                      </div>
+                      <div class="gender">
+                        <input
+                          type="radio"
+                          id="check-female"
+                          formControlName="blog_status"
+                          value="Public"
+                        />
+                        <label for="check-female" class="checkFemale"
+                          >Public</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="button">
+                    <input
+                      (click)="onAddNewMedicine()"
+                      type="submit"
+                      value="Add New Blog"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <main> -->
+      </div>
+    </main>
+  </div>
+</body>

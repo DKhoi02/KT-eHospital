@@ -1,0 +1,170 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-account" >
+              <span><i class="uil uil-user"></i></span>
+              <small>Account</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-room" class="active">
+              <span><i class="uil uil-bed-double"></i></span>
+              <small>Room</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-system">
+              <span><i class="uil uil-setting"></i></span>
+              <small>System</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add New Room</h1>
+        <small>Home / Room Management / Add New Room</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/admin-room"
+                style="background-color: #009bab"
+              >
+                Room Management
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: center">
+            <div class="container">
+              <div class="content">
+                <form [formGroup]="AddNewRoomForm">
+                  <div class="user-details">
+                    <div class="input-box">
+                      <span class="details">Room Name</span>
+                      <input
+                        formControlName="room_name"
+                        type="text"
+                        placeholder="Enter Room Name"
+                      />
+                      <small
+                        *ngIf="
+                          AddNewRoomForm.controls['room_name'].dirty &&
+                          AddNewRoomForm.hasError('required', 'room_name')
+                        "
+                        class="text-danger"
+                        >Room is required</small
+                      >
+                    </div>
+                  </div>
+
+                  <div class="gender-box">
+                    <label>Status</label>
+                    <div class="gender-option">
+                      <div class="user_gender">
+                        <input
+                          type="radio"
+                          id="check-male"
+                          formControlName="room_status"
+                          value="Unavailable"
+                        />
+                        <label for="check-male" class="checkMale"
+                          >Unavailable</label
+                        >
+                      </div>
+                      <div class="gender">
+                        <input
+                          type="radio"
+                          id="check-female"
+                          formControlName="room_status"
+                          value="Available"
+                        />
+                        <label for="check-female" class="checkFemale"
+                          >Available</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="button">
+                    <input
+                      (click)="onAddNewRoom()"
+                      type="submit"
+                      value="Add New Room"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <main> -->
+      </div>
+    </main>
+  </div>
+</body>

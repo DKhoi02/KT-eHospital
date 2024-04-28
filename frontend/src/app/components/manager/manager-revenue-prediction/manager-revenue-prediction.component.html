@@ -1,0 +1,125 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-appointment">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-blog">
+              <span><i class="uil uil-document-layout-left"></i></span>
+              <small>Blog</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-statistic">
+              <span><i class="uil uil-chart-pie-alt"></i></span>
+              <small>Statistic</small>
+            </a>
+          </li>
+          <li>
+            <a
+              class="active"
+              class="active"
+              routerLink="/manager-revenue-prediction"
+            >
+              <span><i class="uil uil-comparison"></i></span>
+              <small>Revenue Prediction</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/manager-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Revenue Prediction</h1>
+        <small>Home / Revenue Prediction</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add" style="width: 50%">
+              <select (change)="onChooseTime($event)" style="width: 20%">
+                <option value="0">Choose Time</option>
+                <option value="90">3 months</option>
+                <option value="180">6 months</option>
+                <option value="365">1 years</option>
+                <option value="1095">3 years</option>
+                <option value="1825">5 years</option>
+              </select>
+              <button (click)="onStatistic()" style="background-color: #009bab">
+                Statistic
+              </button>
+            </div>
+
+            <div class="browse"></div>
+          </div>
+          <div style="display: flex; justify-content: center"></div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="div-form mx-auto"
+      style="display: flex; justify-content: center"
+    >
+      <img [src]="predictImg" />
+    </div>
+  </div>
+</body>

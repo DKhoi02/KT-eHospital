@@ -1,0 +1,249 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin-account">
+              <span><i class="uil uil-users-alt"></i></span>
+              <small>Account</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" style="cursor: pointer" routerLink="/admin-room">
+              <span><i class="uil uil-bed-double"></i></span>
+              <small>Room</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-system">
+              <span><i class="uil uil-setting"></i></span>
+              <small>System</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Room Management</h1>
+        <small>Home / Room Management</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/admin-add-new-room"
+                style="background-color: #009bab"
+              >
+                Add new room
+              </button>
+            </div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+
+          <div>
+            <table width="100%" #tableRef>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>ROOM</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let room of lstRoom | paginate
+                      : { itemsPerPage: pageSize, currentPage: currentPage }">
+                <tr
+                  data-bs-toggle="modal"
+                  data-bs-target="#viewUserInformation"
+                  (click)="onView(room.room_id)"
+                >
+                  <td style="color: #009bab">{{ room.room_id }}</td>
+
+                  <td [innerHTML]="highlightKeyword(room.room_name)"></td>
+
+                  <td [innerHTML]="highlightKeyword(room.room_status)"></td>
+                  <!-- <td>
+                    <div class="actions">
+                      <span style="cursor: pointer"
+                        ><i
+                          class="uil uil-file-redo-alt"
+                          style="color: #009bab"
+                        ></i
+                      ></span>
+                    </div>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+                    <div class="pagination">
+            <pagination-controls
+              (pageChange)="currentPage = $event"
+              variant="Circular"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+<div
+  class="modal fade"
+  id="viewUserInformation"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" style="margin: auto">
+    <div
+      class="modal-content"
+      style="box-shadow: 20px 20px 80px rgb(218, 218, 218)"
+    >
+      <div class="modal-header">
+        <h5
+          class="modal-title"
+          id="exampleModalLabel"
+          style="color: #009bab; margin-left: 15px !important"
+        >
+          Room Information
+        </h5>
+        <button
+          style="margin-right: 15px !important"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="content">
+            <form [formGroup]="viewRoomForm">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Room ID</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="room_id"
+                    type="text"
+                    placeholder="Room ID"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Room Name</span>
+                  <input
+                    formControlName="room_name"
+                    type="text"
+                    placeholder="Room Name"
+                  />
+                </div>
+              </div>
+
+              <div class="gender-box">
+                <label>Status</label>
+                <div class="gender-option">
+                  <div class="user_gender">
+                    <input
+                      type="radio"
+                      id="check-lock"
+                      formControlName="room_status"
+                      value="Unavailable"
+                    />
+                    <label for="check-lock" class="checkMale"
+                      >Unavailable</label
+                    >
+                  </div>
+                  <div class="gender">
+                    <input
+                      type="radio"
+                      id="check-unlock"
+                      formControlName="room_status"
+                      value="Available"
+                    />
+                    <label for="check-unlock" class="checkFemale"
+                      >Available</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="button">
+                <input (click)="onSaveStatus()" type="submit" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

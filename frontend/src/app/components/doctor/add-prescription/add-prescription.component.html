@@ -1,0 +1,296 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/doctor-medical-examination">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Medical Examination</small>
+            </a>
+          </li>
+                    <li>
+            <a routerLink="/doctor-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/doctor-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Add Prescription</h1>
+        <small
+          >Home / Medical Examination Management / Add Examination / Add
+          Prescription</small
+        >
+      </div>
+
+      <div class="analytics" style="display: flex; justify-content: center">
+        <div class="container" style="width: 60%">
+          <div class="content">
+            <form [formGroup]="patientForm">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Medicine</span>
+                  <input
+                    class="form-control"
+                    id="inputMedicine"
+                    list="medicines"
+                    type="text"
+                    formControlName="medicine_name"
+                  />
+                  <datalist id="medicines">
+                    <option
+                      *ngFor="let m of lstMedicine"
+                      value="{{ m.medicine_name }}"
+                    >
+                      {{ m.medicine_name }}
+                    </option>
+                  </datalist>
+                  <small
+                    *ngIf="
+                      patientForm.controls['medicine_name'].dirty &&
+                      patientForm.hasError('isWrongMedicine', 'medicine_name')
+                    "
+                    class="text-danger"
+                    >Please choose correct Medicine</small
+                  >
+                </div>
+                <div class="input-box">
+                  <span class="details">Total Medicine Quantity</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="medicine_total"
+                  />
+                  <small
+                    *ngIf="
+                      patientForm.controls['medicine_total'].dirty &&
+                      patientForm.hasError('isNotNumber', 'medicine_total')
+                    "
+                    class="text-danger"
+                    >Total Medicine Quantity is number</small
+                  >
+                </div>
+                <div class="input-box">
+                  <span class="details">Number of take medicine per day</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="medicine_number_perday"
+                  />
+                  <small
+                    *ngIf="
+                      patientForm.controls['medicine_number_perday'].dirty &&
+                      patientForm.hasError(
+                        'isNotNumber',
+                        'medicine_number_perday'
+                      )
+                    "
+                    class="text-danger"
+                    >Number of take medicine per day is number</small
+                  >
+                </div>
+                <div class="input-box">
+                  <span class="details">Each time, take pill</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    formControlName="medicine_eachtime_pill"
+                  />
+                  <small
+                    *ngIf="
+                      patientForm.controls['medicine_eachtime_pill'].dirty &&
+                      patientForm.hasError(
+                        'isNotNumber',
+                        'medicine_eachtime_pill'
+                      )
+                    "
+                    class="text-danger"
+                    >Each time, take pill is number</small
+                  >
+                </div>
+              </div>
+              <div class="button">
+                <input type="submit" (click)="onSave()" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button (click)="onConfirm()" style="background-color: #009bab">
+                Confirm Appointment
+              </button>
+            </div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <table style="width: 70%" #tableRef>
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Total Medicine Quantity</th>
+                  <th>Number of take medicine per day</th>
+                  <th>Each time, take pill is number</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let data of lstPrescription">
+                <tr>
+                  <td [innerHTML]="highlightKeyword(data.name)"></td>
+                  <td [innerHTML]="highlightKeyword(data.total)"></td>
+                  <td [innerHTML]="highlightKeyword(data.perday)"></td>
+                  <td [innerHTML]="highlightKeyword(data.eachtime)"></td>
+                  <td>
+                    <div class="actions">
+                      <span (click)="onDelete(data.id)" style="cursor: pointer"
+                        ><i class="uil uil-trash-alt" style="color: #009bab"></i
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <table width="100%">
+              <thead>
+                <tr>
+                  <th rowspan="2">
+                    <div style="display: flex; justify-content: center;">
+                      <label for="select-option" style="margin-right: 10px"
+                        >Year</label
+                      >
+                      <select
+                        id="select-option"
+                        class="form-select"
+                        aria-label="Default select example"
+                        style="width: 50%; text-align: center;"
+                        (change)="onChangeYear($event)"
+                      >
+                        <option
+                          *ngFor="let y of lstYear"
+                          value="{{ y }}"
+                          [selected]="y == getCurrentYear"
+                        >
+                          {{ y }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div style="display: flex; justify-content: center;">
+                      <label for="select-option" style="margin-right: 10px"
+                        >Week</label
+                      >
+                      <select
+                        id="select-option"
+                        class="form-select"
+                        aria-label="Default select example"
+                        style="width: 50%"
+                      >
+                        <option *ngFor="let w of lstWeekOfYear" value="{{ w }}" [selected]=" w == currentWeek">
+                          {{ w }}
+                        </option>
+                      </select>
+                    </div>
+                  </th>
+                  <th colspan="1">MonDay</th>
+                  <th colspan="1">Tuesday</th>
+                  <th colspan="1">Wednesday</th>
+                  <th colspan="1">Thursday</th>
+                  <th colspan="1">Friday</th>
+                  <th colspan="1">Saturday</th>
+                  <th colspan="1">Sunday</th>
+                </tr>
+                <tr>
+                  <th *ngFor="let d of lstDayOfWeeks">{{ d }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Data 1</td>
+                  <td *ngFor="let d of lstDayOfWeeks">
+                    <select
+                      id="select-option"
+                      class="form-select"
+                      aria-label="Default select example"
+
+                    >
+                      <option *ngFor="let y of lstDayOfWeeks" value="{{ y }}">
+                        {{ y }}
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

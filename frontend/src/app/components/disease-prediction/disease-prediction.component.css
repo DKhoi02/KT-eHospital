@@ -1,0 +1,157 @@
+body {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2{
+  margin-top: 30px;
+  text-align: center
+}
+
+.chooseSymptom{
+  display: flex;
+  justify-content: space-between
+}
+
+.disease{
+  max-width: 700px;
+  height: 500px;
+  border: 1px solid rgb(97, 93, 93);
+  flex: 1;
+  margin-right: 10%;
+  border-radius: 10%;
+}
+
+.symptom{
+  max-width: 700px;
+  border: 1px solid rgb(97, 93, 93);
+  height: 500px;
+  flex: 1;
+  border-radius: 10%;
+}
+
+.searchSymptom{
+  margin-top: 30px;
+  margin-left: 40px;
+  margin-bottom: 15px;
+  width: 600px;
+  border-bottom: 2px solid rgb(97, 93, 93);
+}
+
+.form-control{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+  border: 2px solid #009bab
+}
+
+.addSymptom{
+  height: 40px;
+  border: none;
+  color: white;
+  background-color: #009bab;
+  padding: 10px;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.deleteSymptom{
+  border-bottom: 2px solid rgb(97, 93, 93);
+}
+
+.deleteSymptom > ul {
+  list-style: none;
+  overflow-y: auto;
+  height: 250px;
+}
+
+.deleteSymptom > ul > li {
+  background-color: #009bab;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  margin: 5px;
+  display: inline-block;
+}
+
+.deleteSymptom > ul > li > button {
+  border: none;
+  background-color: white;
+  color: #009bab;
+  border-radius: 5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  transition: ease 0.2s;
+}
+
+.deleteSymptom > ul > li > button:hover {
+  cursor: pointer;
+  background-color: #f4f4f4;
+  transition: ease 0.2s;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+.resetSymptom{
+  margin-top: 30px;
+  margin-left: 40px;
+  margin-bottom: 15px;
+  height: 40px;
+  border: none;
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.finishSymptom{
+  margin-top: 30px;
+  margin-right: 40px;
+  margin-bottom: 15px;
+  height: 40px;
+  border: none;
+  color: white;
+  background-color: #009bab;
+  padding: 10px;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.tableResult{
+  display: flex;
+  justify-content: center;
+}
+
+table{
+  margin-top: 30px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table th,
+table td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+.actionSymptom{
+  display: flex;
+  justify-content: space-between
+}
+
+.warningUser{
+  text-align: justify
+}
+
+
+

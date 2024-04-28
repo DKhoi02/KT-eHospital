@@ -1,0 +1,224 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/manager-appointment">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-blog">
+              <span><i class="uil uil-document-layout-left"></i></span>
+              <small>Blog</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-statistic">
+              <span><i class="uil uil-chart-pie-alt"></i></span>
+              <small>Statistic</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-revenue-prediction">
+              <span><i class="uil uil-comparison"></i></span>
+              <small>Revenue Prediction</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/manager-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Appointment Management</h1>
+        <small>Home / Appointment Management</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add"></div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+
+          <div>
+            <table width="100%" #tableRef>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>PATIENT</th>
+                  <th>DOCTOR</th>
+                  <th>PHARMACIST</th>
+                  <th>DATE</th>
+                  <th>STATUS</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody
+                *ngFor="
+                  let data of lstUser
+                    | paginate
+                      : { itemsPerPage: pageSize, currentPage: currentPage }
+                "
+              >
+                <tr>
+                  <td style="color: #009bab">{{ data.appointment_id }}</td>
+                  <td>
+                    <div class="client">
+                      <div
+                        class="client-img bg-img"
+                        style="background-image: url({{ data.patient_img }})"
+                      ></div>
+                      <div class="client-info">
+                        <h4
+                          [innerHTML]="highlightKeyword(data.patient_name)"
+                        ></h4>
+                        <small
+                          [innerHTML]="highlightKeyword(data.patient_email)"
+                        ></small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="client">
+                      <div
+                        class="client-img bg-img"
+                        style="background-image: url({{ data.doctor_img }})"
+                      ></div>
+                      <div class="client-info">
+                        <h4
+                          [innerHTML]="highlightKeyword(data.doctor_name)"
+                        ></h4>
+                        <small
+                          [innerHTML]="highlightKeyword(data.doctor_email)"
+                        ></small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="client">
+                      <div
+                        class="client-img bg-img"
+                        style="background-image: url({{ data.pharmacist_img }})"
+                      ></div>
+                      <div class="client-info">
+                        <h4
+                          [innerHTML]="highlightKeyword(data.pharmacist_name)"
+                        ></h4>
+                        <small
+                          [innerHTML]="highlightKeyword(data.pharmacist_email)"
+                        ></small>
+                      </div>
+                    </div>
+                  </td>
+                  <td
+                    [innerHTML]="
+                      highlightKeyword(
+                        (data.appointment_date | date : 'yyyy/MM/dd') || ''
+                      )
+                    "
+                  ></td>
+                  <td
+                    [innerHTML]="highlightKeyword(data.appointment_status)"
+                  ></td>
+                  <td>
+                    <div class="actions">
+                      <span
+                        [routerLink]="[
+                          '/manager-change-appointment',
+                          data.appointment_id
+                        ]"
+                        style="cursor: pointer; margin-right: 15%"
+                        ><i class="uil uil-eye" style="color: #009bab"></i
+                      ></span>
+                      <span
+                        (click)="onResetStatus(data.appointment_id)"
+                        style="cursor: pointer; margin-right: 15%"
+                        ><i
+                          class="uil uil-file-redo-alt"
+                          style="color: #009bab"
+                        ></i
+                      ></span>
+                      <span
+                        (click)="onCancel(data.appointment_id)"
+                        style="cursor: pointer"
+                        ><i class="uil uil-trash-alt" style="color: #009bab"></i
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <pagination-controls
+              (pageChange)="currentPage = $event"
+              variant="Circular"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

@@ -1,0 +1,229 @@
+<div class="body">
+  <div class="container active">
+    <div class="forms">
+      <div class="form signup">
+        <span class="title">Registration</span>
+        <form [formGroup]="SignUpForm">
+          <div class="input-field">
+            <input
+              type="text"
+              placeholder="Enter Full Name"
+              autocomplete="off"
+              formControlName="user_fullName"
+            />
+            <i class="uil uil-user"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_fullName'].dirty &&
+              SignUpForm.hasError('required', 'user_fullName')
+            "
+            class="text-danger"
+            >Full Name is required</small
+          >
+          
+          <div class="input-field">
+            <input
+              type="email"
+              placeholder="Enter Email"
+              autocomplete="off"
+              formControlName="user_email"
+            />
+            <i class="uil uil-envelope icon"></i>
+          </div>
+
+          <small
+            *ngIf="
+              SignUpForm.controls['user_email'].dirty &&
+                SignUpForm.hasError('required', 'user_email');
+              else emailFormat
+            "
+            class="text-danger"
+            >Email is required</small
+          >
+
+          <ng-template #emailFormat>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_email'].dirty &&
+                SignUpForm.hasError('pattern', 'user_email')
+              "
+              class="text-danger"
+              >Email is incorrect format. Please enter again</small
+            >
+          </ng-template>
+          <div class="input-field">
+            <input
+              type="text"
+              placeholder="Enter Phone Number"
+              autocomplete="off"
+              formControlName="user_phoneNumber"
+            />
+            <i class="uil uil-phone"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_phoneNumber'].dirty &&
+                SignUpForm.hasError('required', 'user_phoneNumber');
+              else phoneNumberFormat
+            "
+            class="text-danger"
+            >Phone Number is required</small
+          >
+          <ng-template #phoneNumberFormat>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_phoneNumber'].dirty &&
+                SignUpForm.hasError('pattern', 'user_phoneNumber')
+              "
+              class="text-danger"
+              >Phone number with 03, 05, 07, 08, or 09 and remaing 8 digit with
+              0-9</small
+            >
+          </ng-template>
+          <div class="input-field">
+            <input
+              type="date"
+              placeholder="dd-mm-yyyy"
+              autocomplete="off"
+              formControlName="user_birthDate"
+            />
+            <i class="uil uil-calendar-alt"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_birthDate'].dirty &&
+                SignUpForm.hasError('required', 'user_birthDate');
+              else birthDateFormat
+            "
+            class="text-danger"
+            >Birthdate is required</small
+          >
+
+          <ng-template #birthDateFormat>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_birthDate'].dirty &&
+                SignUpForm.hasError('futureDate', 'user_birthDate')
+              "
+              class="text-danger"
+              >Birth date cannot be in the future</small
+            >
+          </ng-template>
+          <div class="input-field">
+            <input
+              type="text"
+              placeholder="Enter Address"
+              autocomplete="off"
+              formControlName="user_address"
+            />
+            <i class="uil uil-location-pin-alt"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_address'].dirty &&
+              SignUpForm.hasError('required', 'user_address')
+            "
+            class="text-danger"
+            >Address is required</small
+          >
+          <div class="gender-box">
+            <label>Gender</label>
+            <div class="gender-option">
+              <div class="user_gender">
+                <input
+                  type="radio"
+                  id="check-male"
+                  formControlName="user_gender"
+                  value="Male"
+                />
+                <label for="check-male" class="checkMale">Male</label>
+              </div>
+              <div class="gender">
+                <input
+                  type="radio"
+                  id="check-female"
+                  formControlName="user_gender"
+                  value="Female"
+                />
+                <label for="check-female" class="checkFemale">Female</label>
+              </div>
+            </div>
+          </div>
+          <div class="input-field">
+            <input
+              type="password"
+              class="password"
+              placeholder="Enter Password"
+              autocomplete="off"
+              formControlName="user_password"
+            />
+            <i class="uil uil-lock icon"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_password'].dirty &&
+                SignUpForm.hasError('required', 'user_password');
+              else passwordFormat
+            "
+            class="text-danger"
+            >Password is required</small
+          >
+          <ng-template #passwordFormat>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_password'].dirty &&
+                SignUpForm.hasError('pattern', 'user_password')
+              "
+              class="text-danger"
+              >Password must contain at least 8 or more letters
+              <br> Password must contain at least one number
+              <br>Password must contain at least one uppercase letter
+              <br>Password must contain at least one lowercase letter
+              <br>Password must contain at least one special letter  </small
+            >
+          </ng-template>
+          <div class="input-field">
+            <input
+              type="password"
+              class="password"
+              placeholder="Enter Confirm Password"
+              autocomplete="off"
+              formControlName="user_confirmPassword"
+            />
+            <i class="uil uil-lock icon"></i>
+            <i class="uil uil-eye-slash"></i>
+          </div>
+          <small
+            *ngIf="
+              SignUpForm.controls['user_confirmPassword'].dirty &&
+                SignUpForm.hasError('required', 'user_confirmPassword');
+              else confirmPasswordFormat
+            "
+            class="text-danger"
+            >Confirm Password is required</small
+          >
+          <ng-template #confirmPasswordFormat>
+            <small
+              *ngIf="
+                this.SignUpForm.get('user_confirmPassword')?.value !==
+                this.SignUpForm.get('user_password')?.value
+              "
+              class="text-danger"
+              >Password and Confirm Password are not match</small
+            >
+          </ng-template>
+          <div class="input-field button">
+            <input (click)="onSignUp()" type="submit" value="Sign Up" />
+          </div>
+        </form>
+        <div class="login-signup">
+          <span class="text"
+            >Already a member?
+            <a routerLink="/signin" class="text login-link">Sign In Now</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

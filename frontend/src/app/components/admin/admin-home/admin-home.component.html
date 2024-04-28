@@ -1,0 +1,350 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/admin-account">
+              <span><i class="uil uil-users-alt"></i></span>
+              <small>Account</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-room">
+              <span><i class="uil uil-bed-double"></i></span>
+              <small>Room</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-system">
+              <span><i class="uil uil-setting"></i></span>
+              <small>System</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/admin-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Account Management</h1>
+        <small>Home / Account Management</small>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                routerLink="/admin-add-new-account"
+                style="background-color: #009bab"
+              >
+                Add new account
+              </button>
+            </div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+
+          <div>
+            <table width="100%" #tableRef>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>USER</th>
+                  <th>ROLE</th>
+                  <th>BIRTHDATE</th>
+                  <th>STATUS</th>
+                  <!-- <th>ACTIONS</th> -->
+                </tr>
+              </thead>
+              <tbody
+                *ngFor="
+                  let user of lstUser
+                    | paginate
+                      : { itemsPerPage: pageSize, currentPage: currentPage }
+                "
+              >
+                <tr
+                  data-bs-toggle="modal"
+                  data-bs-target="#viewUserInformation"
+                  (click)="onView(user.user_email)"
+                >
+                  <td style="color: #009bab">{{ user.user_id }}</td>
+                  <td>
+                    <div class="client">
+                      <div
+                        class="client-img bg-img"
+                        style="background-image: url({{ user.user_image }})"
+                      ></div>
+                      <div class="client-info">
+                        <h4
+                          [innerHTML]="highlightKeyword(user.user_fullName)"
+                        ></h4>
+                        <small
+                          [innerHTML]="highlightKeyword(user.user_email)"
+                        ></small>
+                      </div>
+                    </div>
+                  </td>
+                  <td [innerHTML]="highlightKeyword(user.role_name)"></td>
+                  <td
+                    [innerHTML]="
+                      highlightKeyword(
+                        (user.user_birthDate | date : 'yyyy/MM/dd') || ''
+                      )
+                    "
+                  ></td>
+                  <td [innerHTML]="highlightKeyword(user.user_status)"></td>
+                  <!-- <td>
+                    <div class="actions">
+                      <span style="cursor: pointer"
+                        ><i
+                          class="uil uil-file-redo-alt"
+                          style="color: #009bab"
+                        ></i
+                      ></span>
+                    </div>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <pagination-controls
+              (pageChange)="currentPage = $event"
+              variant="Circular"
+            ></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+<div
+  class="modal fade"
+  id="viewUserInformation"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" style="margin: auto">
+    <div
+      class="modal-content"
+      style="box-shadow: 20px 20px 80px rgb(218, 218, 218)"
+    >
+      <div class="modal-header">
+        <h5
+          class="modal-title"
+          id="exampleModalLabel"
+          style="color: #009bab; margin-left: 15px !important"
+        >
+          User Information
+        </h5>
+        <button
+          style="margin-right: 15px !important"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="content">
+            <form [formGroup]="viewProfileForm">
+              <div class="d-flex justify-content-center align-items-center">
+                <img
+                  [attr.disabled]="true"
+                  class="img-account-profile mb-2"
+                  style="height: 15rem; width: 15rem"
+                  src="{{ imgUser }}"
+                  alt=""
+                />
+              </div>
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Full Name</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_fullName"
+                    type="text"
+                    placeholder="Enter Full Name"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Email</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_email"
+                    type="text"
+                    placeholder="Enter Email"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Address</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_address"
+                    type="text"
+                    placeholder="Enter Address"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Phone Number</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_phoneNumber"
+                    type="text"
+                    placeholder="Phone Number"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <label
+                    for="birthday"
+                    style="font-weight: 500; color: var(--grey-color)"
+                    >Birthday</label
+                  >
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_birthDate"
+                    type="date"
+                    id="birthday"
+                    name="birthday"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <span class="details">Gender</span>
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_gender"
+                    type="text"
+                    placeholder="Gender"
+                  />
+                </div>
+
+                <div class="input-box">
+                  <label style="font-weight: 500; color: var(--grey-color)"
+                    >Quantity Canceled</label
+                  >
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_quantity_canceled"
+                    type="text"
+                  />
+                </div>
+                <div class="input-box">
+                  <label style="font-weight: 500; color: var(--grey-color)"
+                    >Role</label
+                  >
+                  <input
+                    [attr.disabled]="true"
+                    formControlName="user_role_name"
+                    type="text"
+                  />
+                </div>
+              </div>
+
+              <div class="gender-box">
+                <label>Status</label>
+                <div class="gender-option">
+                  <div class="user_gender">
+                    <input
+                      type="radio"
+                      id="check-lock"
+                      formControlName="user_status"
+                      value="Lock"
+                    />
+                    <label for="check-lock" class="checkMale">Lock</label>
+                  </div>
+                  <div class="gender">
+                    <input
+                      type="radio"
+                      id="check-unlock"
+                      formControlName="user_status"
+                      value="Unlock"
+                    />
+                    <label for="check-unlock" class="checkFemale">Unlock</label>
+                  </div>
+                </div>
+              </div>
+              <div class="button">
+                <input (click)="onSaveStatus()" type="submit" value="Save" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

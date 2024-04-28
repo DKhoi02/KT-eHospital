@@ -1,0 +1,247 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/doctor-medical-examination">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Medical Examination</small>
+            </a>
+          </li>
+                    <li>
+            <a routerLink="/doctor-schedule">
+              <span><i class="uil uil-calender"></i></span>
+              <small>Schedule</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/doctor-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Appointment History</h1>
+        <small>Home / Add Medical Examination / Appointment History</small>
+      </div>
+
+      <div class="analytics" style="display: flex; justify-content: center">
+        <div class="container" style="width: 60%">
+          <div class="content">
+            <form>
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details">Full Name</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ fullname }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Email</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ email }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">BirthDate</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ birthday }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Gender</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ gender }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Appointment Date</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ birthday }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Address</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ address }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Doctor Name</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ doctor_name }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Doctor Email</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ doctor_email }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Pharmacist Name</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ pharmacist_name }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box">
+                  <span class="details">Pharmacist Email</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    value="{{ pharmacist_email }}"
+                    [disabled]="true"
+                    style="border: 2px solid #009bab"
+                  />
+                </div>
+                <div class="input-box" style="flex: 1">
+                  <span class="details">Symptom</span>
+                  <textarea
+                    class="form-control"
+                    type="text"
+                    style="border: 2px solid #009bab"
+                    value="{{ symptom }}"
+                    [disabled]="true"
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add">
+              <button
+                [routerLink]="[
+                  '/doctor-add-medical-examination',
+                  appointmentID
+                ]"
+                style="background-color: #009bab"
+              >
+                Back To Add Medical Examination
+              </button>
+            </div>
+
+            <div class="browse">
+              <input
+                (input)="onChageSearch($event)"
+                type="search"
+                placeholder="Search"
+                class="record-search"
+              />
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center">
+            <table style="width: 70%" #tableRef>
+              <thead>
+                <tr>
+                  <th>Medicine Name</th>
+                  <th>Total Medicine Quantity</th>
+                  <th>Number of take medicine per day</th>
+                  <th>Each time, take pill is number</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let data of lstPrescription">
+                <tr>
+                  <td [innerHTML]="highlightKeyword(data.name)"></td>
+                  <td [innerHTML]="highlightKeyword(data.total)"></td>
+                  <td [innerHTML]="highlightKeyword(data.perday)"></td>
+                  <td [innerHTML]="highlightKeyword(data.eachtime)"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>

@@ -1,0 +1,182 @@
+<body>
+  <input type="checkbox" id="menu-toggle" />
+  <div class="sidebar">
+    <div class="side-header" style="background-color: white">
+      <h3 style="color: #009bab">KT<span>-eHospital</span></h3>
+    </div>
+
+    <div class="side-content">
+      <div class="profile">
+        <input
+          (change)="handleFileInput($event)"
+          type="file"
+          accept="image/*"
+          id="user-image"
+          style="z-index: -1; position: absolute; opacity: 0"
+        />
+        <label
+          for="user-image"
+          class="profile-img bg-img"
+          style="background-image: url('{{ imgUrl }}')"
+        ></label>
+        <h4>{{ userModel.user_fullName }}</h4>
+        <small>{{ roleName }}</small>
+      </div>
+
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a routerLink="/">
+              <span><i class="uil uil-estate"></i></span>
+              <small>Home</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-appointment">
+              <span><i class="uil uil-medical-square"></i></span>
+              <small>Appointment</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-blog">
+              <span><i class="uil uil-document-layout-left"></i></span>
+              <small>Blog</small>
+            </a>
+          </li>
+          <li>
+            <a class="active" routerLink="/manager-statistic">
+              <span><i class="uil uil-chart-pie-alt"></i></span>
+              <small>Statistic</small>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/manager-revenue-prediction">
+              <span><i class="uil uil-comparison"></i></span>
+              <small>Revenue Prediction</small>
+            </a>
+          </li>
+          <li>
+            <a style="cursor: pointer" routerLink="/manager-profile">
+              <span><i class="uil uil-user"></i></span>
+              <small>Profile</small>
+            </a>
+          </li>
+          <li>
+            <a (click)="onSignOut()" style="cursor: pointer">
+              <span><i class="uil uil-signout"></i></span>
+              <small>Sign Out</small>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <header style="background-color: #009bab">
+      <div class="header-content">
+        <label for="menu-toggle">
+          <span><i class="uil uil-bars" style="color: white"></i></span>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-header">
+        <h1>Statistic</h1>
+        <small>Home / Statistic</small>
+      </div>
+      <div class="analytics">
+        <div class="card">
+          <div class="card-head">
+            <h2 style="color: #009bab">{{ total_revenue }} VND</h2>
+            <span
+              ><i style="color: #009bab" class="uil uil-dollar-alt"></i
+            ></span>
+          </div>
+          <div class="card-progress">
+            <small style="color: #009bab">Total Revenue</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 style="color: #009bab">{{ total_user }}</h2>
+            <span
+              ><i style="color: #009bab" class="uil uil-users-alt"></i
+            ></span>
+          </div>
+          <div class="card-progress">
+            <small style="color: #009bab">Total User</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 style="color: #009bab">{{ total_appointment }}</h2>
+            <span><i style="color: #009bab" class="uil uil-invoice"></i></span>
+          </div>
+          <div class="card-progress">
+            <small style="color: #009bab">Total Appointment</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h2 style="color: #009bab">{{ total_blog }}</h2>
+            <span
+              ><i
+                style="color: #009bab"
+                class="uil uil-document-layout-left"
+              ></i
+            ></span>
+          </div>
+          <div class="card-progress">
+            <small style="color: #009bab">Total Blog</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="records table-responsive">
+          <div class="record-header">
+            <div class="add" style="width: 50%">
+              <label style="margin-right: 2%">From:</label>
+              <input
+                (change)="onChangeFromDate($event)"
+                type="date"
+                style="margin-right: 10%; width: 55%"
+              />
+              <label style="margin-right: 2%">To:</label>
+              <input
+                (change)="onChangeToDate($event)"
+                type="date"
+                style="margin-right: 10%; width: 55%"
+              />
+              <button (click)="onStatistic()" style="background-color: #009bab">
+                Statistic
+              </button>
+            </div>
+
+            <div class="browse"></div>
+          </div>
+          <div style="display: flex; justify-content: center"></div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="div-form mx-auto"
+      style="display: flex; justify-content: center"
+    >
+      <div class="div-chart1" style="width: 25%; margin-right: 10%">
+        <h2 class="title-chart">Revenue Chart</h2>
+        <canvas id="radarChart"></canvas>
+      </div>
+      <div class="div-chart1" style="width: 25%">
+        <h2 class="title-chart">Appointment Chart</h2>
+        <canvas id="radarChart1"></canvas>
+      </div>
+    </div>
+  </div>
+</body>

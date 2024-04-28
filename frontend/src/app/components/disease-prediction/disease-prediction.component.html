@@ -1,0 +1,95 @@
+<h2>Disease Prediction</h2>
+<body>
+  <div class="disease">
+    <div class="searchSymptom">
+      <form [formGroup]="symptomForm">
+        <span class="details">Choose Symptom</span>
+        <div class="chooseSymptom">
+          <input
+            class="form-control"
+            id="inputSymptom"
+            list="symstom"
+            type="text"
+            formControlName="symptom"
+          />
+          <datalist id="symstom">
+            <option
+              *ngFor="let symptom of lstSymptoms"
+              [value]="symptom"
+            ></option>
+          </datalist>
+          <button (click)="onAddSymptom()" class="addSymptom">Add</button>
+        </div>
+      </form>
+      <small
+        *ngIf="
+          symptomForm.controls['symptom'].dirty &&
+          symptomForm.hasError('isWrongSymptom', 'symptom')
+        "
+        class="text-danger"
+        >Please choose correct Symptom</small
+      >
+    </div>
+    <div class="col-12 deleteSymptom">
+      <ul>
+        <li *ngFor="let s of lstSymptomed; let i = index">{{s}} <button (click)="onDelete(i, s)">X</button></li>
+      </ul>
+    </div>
+    <div class="actionSymptom">
+      <button (click)="onReset()" class="resetSymptom">Reset</button>
+      <button (click)="onFinish()" class="finishSymptom">Finish</button>
+    </div>
+  </div>
+  <div class="symptom">
+    <div class="searchSymptom">
+      <p class="warningUser">
+        Please note that this is just a prediction for reference purposes, and
+        the results may contain errors. For accurate information, please visit a
+        hospital directly and always consult a doctor if you have any symptoms
+        of a disease or call your local hospital.
+      </p>
+    </div>
+    <div class="col-12 tableResult">
+      <table style="width: 85%">
+        <thead>
+          <tr>
+            <th>DESEASE NAME</th>
+            <th>POSSIBILITY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color: rgb(241, 42, 42)">
+             {{diseaseTop1Name}}
+            </td>
+            <td style="color: rgb(241, 42, 42)">{{diseaseTop1Percent}}</td>
+          </tr>
+          <tr>
+            <td >
+              {{diseaseTop2Name}}
+            </td>
+            <td >{{diseaseTop2Percent}}</td>
+          </tr>
+          <tr>
+            <td >
+              {{diseaseTop3Name}}
+            </td>
+            <td >{{diseaseTop3Percent}}</td>
+          </tr>
+          <tr>
+            <td >
+              {{diseaseTop4Name}}
+            </td>
+            <td >{{diseaseTop4Percent}}</td>
+          </tr>
+          <tr>
+            <td >
+              {{diseaseTop5Name}}
+            </td>
+            <td >{{diseaseTop5Percent}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
