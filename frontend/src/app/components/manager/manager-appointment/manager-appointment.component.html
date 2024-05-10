@@ -185,10 +185,7 @@
                   <td>
                     <div class="actions">
                       <span
-                        [routerLink]="[
-                          '/manager-change-appointment',
-                          data.appointment_id
-                        ]"
+                        (click)="managerChangeAppointment(data.appointment_id)"
                         style="cursor: pointer; margin-right: 15%"
                         ><i class="uil uil-eye" style="color: #009bab"></i
                       ></span>

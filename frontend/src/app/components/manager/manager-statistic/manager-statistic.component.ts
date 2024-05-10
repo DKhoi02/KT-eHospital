@@ -6,6 +6,8 @@ import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { Chart, registerables } from 'node_modules/chart.js';
 import { StatisticService } from 'src/app/services/statistic.service';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 Chart.register(...registerables);
 
 @Component({
@@ -24,7 +26,7 @@ export class ManagerStatisticComponent implements OnInit {
   public total_revenue: string = '';
   public total_user: string = '';
   public total_appointment: string = '';
-  public total_blog:string = '';
+  public total_blog: string = '';
 
   public fromDate: string = '';
   public toDate: string = '';
@@ -106,6 +108,7 @@ export class ManagerStatisticComponent implements OnInit {
         {
           label: 'Total Revenue from ' + this.fromDate + ' to ' + this.toDate,
           data: [this.total],
+
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -119,18 +122,23 @@ export class ManagerStatisticComponent implements OnInit {
       ],
     };
 
-    this.radarChart = new Chart('radarChart', {
-      type: 'pie',
-      data: dataTotal,
-
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
+  this.radarChart = new Chart('radarChart', {
+    type: 'pie',
+    data: dataTotal,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
         },
       },
-    });
+      plugins: {
+        datalabels: {
+          color: 'white',
+        },
+      },
+    },
+    plugins: [ChartDataLabels],
+  });
 
     this.radarChart = new Chart('radarChart1', {
       type: 'pie',
@@ -142,17 +150,38 @@ export class ManagerStatisticComponent implements OnInit {
             beginAtZero: true,
           },
         },
+        plugins: {
+          datalabels: {
+            color: 'white',
+          },
+        },
       },
+      plugins: [ChartDataLabels],
     });
   }
 
   onStatistic() {
     if (this.fromDate.length > 0 && this.toDate.length > 0) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.statisticService
         .getDateStatistic(this.fromDate, this.toDate)
         .subscribe(
           (res: any) => {
-            console.log(res);
+            Swal.close();
             this.total = res.total;
             this.lstData = res.data;
             this.lstData.forEach(
@@ -164,6 +193,7 @@ export class ManagerStatisticComponent implements OnInit {
             this.RadarChart();
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Statistic unsuccessful',
               text: err.message,
@@ -172,6 +202,7 @@ export class ManagerStatisticComponent implements OnInit {
           }
         );
     } else {
+      Swal.close();
       Swal.fire({
         title: 'Statistic unsuccessful',
         text: 'Please enter full from and to date',

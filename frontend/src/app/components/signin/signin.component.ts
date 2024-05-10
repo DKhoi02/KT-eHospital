@@ -25,9 +25,8 @@ export class SigninComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private userStore: UserStoreService
-  ) // private renderer: Renderer2
-  {}
+    private userStore: UserStoreService // private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
     this.SignInForm = this.fb.group({
@@ -38,6 +37,21 @@ export class SigninComponent implements OnInit {
 
   onSignIn() {
     if (this.SignInForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       // // Disable the submit button
       // this.renderer.setProperty(this.signInBtn.nativeElement, 'disabled', true);
 
@@ -61,6 +75,7 @@ export class SigninComponent implements OnInit {
         )
         .subscribe(
           (response) => {
+            Swal.close();
             this.SignInForm.reset();
             this.auth.storeToken(response.accessToken);
             this.auth.storeRefreshToken(response.refreshToken);
@@ -80,6 +95,7 @@ export class SigninComponent implements OnInit {
             }
           },
           (error) => {
+            Swal.close();
             Swal.fire(
               'Login Failed',
               'Please enter email or password again!',

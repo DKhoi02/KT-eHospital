@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
+import { DataService } from 'src/app/services/data.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -22,7 +23,8 @@ export class BlogSearchComponent implements OnInit {
     private auth: AuthService,
     private userStore: UserStoreService,
     private blogService: BlogService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -59,12 +61,13 @@ export class BlogSearchComponent implements OnInit {
   }
 
   onView(id: number) {
+    this.dataService.setViewBlog(id.toString());
     if (this.currentUser != undefined) {
       this.blogService.addCountBlog(this.currentUser, id).subscribe((res) => {
-        this.router.navigate(['/view-blog', id]);
+        this.router.navigate(['/view-blog']);
       });
     } else {
-      this.router.navigate(['/view-blog', id]);
+      this.router.navigate(['/view-blog']);
     }
   }
 

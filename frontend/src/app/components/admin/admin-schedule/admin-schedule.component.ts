@@ -19,6 +19,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { RoomService } from 'src/app/services/room.service';
 import ValidateForm from 'src/app/helpers/validateForms';
 import { ScheduleService } from 'src/app/services/schedule.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-admin-schedule',
@@ -53,7 +54,8 @@ export class AdminScheduleComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleService,
     private roomService: RoomService,
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
+    private dataService: DataService
   ) {}
 
   // data: any = [
@@ -81,14 +83,31 @@ export class AdminScheduleComponent implements OnInit {
 
   handleDateClick(arg: any) {
     this.chooseDate = arg.dateStr;
-    this.router.navigate(['admin-add-update-schedule', this.chooseDate]);
+    this.dataService.setAdminAddUpdateSchedule(this.chooseDate);
+    this.router.navigate(['admin-add-update-schedule']);
   }
 
   handleDayCellMount(info: any) {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     const cell = info.el;
     const date = info.date;
 
     this.scheduleService.getSchedule().subscribe((res) => {
+      Swal.close();
       this.lstSchedule = res;
 
       this.lstSchedule.forEach(
@@ -97,9 +116,7 @@ export class AdminScheduleComponent implements OnInit {
             'YYYY-MM-DD'
           );
 
-          const dateCompare = moment(new Date(date)).format(
-            'YYYY-MM-DD'
-          );
+          const dateCompare = moment(new Date(date)).format('YYYY-MM-DD');
 
           if (dateCompare === dateSchedule) {
             cell.style.backgroundColor = '#28a745';

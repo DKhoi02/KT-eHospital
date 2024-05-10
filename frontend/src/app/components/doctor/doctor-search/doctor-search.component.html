@@ -19,7 +19,7 @@
         <div style="cursor: pointer;"
           *ngFor="let data of lstDoctors"
           class="col-lg-6 team-item"
-          [routerLink]="['/doctor-detail', data.user_email]"
+          (click) = doctorDetail(data.user_email)
         >
           <div class="row g-0 bg-light rounded overflow-hidden">
             <div class="col-12 col-sm-5 h-100 text-center">

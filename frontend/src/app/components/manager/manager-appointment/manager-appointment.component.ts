@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
@@ -40,7 +41,8 @@ export class ManagerAppointmentComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleService,
     private sanitizer: DomSanitizer,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -184,7 +186,6 @@ export class ManagerAppointmentComponent implements OnInit {
     });
   }
 
-  onView(id: number) {}
   onCancel(id: number) {
     Swal.fire({
       title: 'Are you sure cancel appointment?',
@@ -237,6 +238,11 @@ export class ManagerAppointmentComponent implements OnInit {
         );
       }
     });
+  }
+
+  managerChangeAppointment(id: number){
+    this.dataService.setManagerChangeAppointment(id.toString())
+    this.router.navigate(['manager-change-appointment'])
   }
 
   handleFileInput(event: any) {

@@ -12,6 +12,7 @@ import ValidateForm from 'src/app/helpers/validateForms';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { PrescriptionService } from 'src/app/services/prescription.service';
 import { RoleService } from 'src/app/services/role.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -66,7 +67,6 @@ export class ManageChangeAppointmentComponent implements OnInit {
   pharmacist_name: string = '';
   totalAppointment: number = 0;
 
-
   constructor(
     private auth: AuthService,
     private userStore: UserStoreService,
@@ -79,7 +79,8 @@ export class ManageChangeAppointmentComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private appointmentService: AppointmentService,
-    private prescriptionService: PrescriptionService
+    private prescriptionService: PrescriptionService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -87,9 +88,7 @@ export class ManageChangeAppointmentComponent implements OnInit {
       schedule_doctor: ['', [Validators.required, this.checkScheduleDoctor()]],
     });
 
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.appointmentID = +params['id'];
-    });
+    this.appointmentID = +this.dataService.getManagerChangeAppointment();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -211,6 +210,21 @@ export class ManageChangeAppointmentComponent implements OnInit {
 
   onSave() {
     if (this.updateAppointmentForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.appointmentService
         .changeDoctor(
           this.appointmentID,
@@ -220,6 +234,7 @@ export class ManageChangeAppointmentComponent implements OnInit {
         )
         .subscribe(
           (res) => {
+            Swal.close();
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -267,6 +282,7 @@ export class ManageChangeAppointmentComponent implements OnInit {
               });
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Change doctor unsuccessful',
               text: 'Change doctor unsuccessful. Please try again.',

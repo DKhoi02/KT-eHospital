@@ -5,6 +5,7 @@ import { BlogService } from 'src/app/services/blog.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
     private auth: AuthService,
     private userStore: UserStoreService,
     private blogService: BlogService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -42,17 +44,22 @@ export class HomeComponent implements OnInit {
 
     this.blogService.getBlogHome().subscribe((res) => {
       this.lstBlogs = res;
-      console.log(this.lstBlogs);
     });
   }
 
+  doctorDetail(user_email:string){
+    this.dataService.setDoctorDetail(user_email)
+    this.router.navigate(['doctor-detail'])
+  }
+
   onView(id: number) {
+    this.dataService.setViewBlog(id.toString());
     if (this.currentUser != undefined) {
       this.blogService.addCountBlog(this.currentUser, id).subscribe((res) => {
-        this.router.navigate(['/view-blog', id]);
+        this.router.navigate(['/view-blog']);
       });
     } else {
-      this.router.navigate(['/view-blog', id]);
+      this.router.navigate(['/view-blog']);
     }
   }
 }

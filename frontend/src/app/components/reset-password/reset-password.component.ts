@@ -48,6 +48,21 @@ export class ResetPasswordComponent implements OnInit {
 
   onResetPassword() {
     if (this.ResetPassForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.resetPasswordObj.resetPass_email = this.emailToReset;
       this.resetPasswordObj.resetPass_newPassword =
         this.ResetPassForm.get('user_password')?.value;
@@ -58,6 +73,7 @@ export class ResetPasswordComponent implements OnInit {
 
       this.resetService.resetPassword(this.resetPasswordObj).subscribe({
         next: (res) => {
+          Swal.close();
           Swal.fire(
             'Reset password successfully',
             'Reset password successfully. Sign In Now',
@@ -66,6 +82,7 @@ export class ResetPasswordComponent implements OnInit {
           this.router.navigate(['signin']);
         },
         error: (err) => {
+          Swal.close();
           Swal.fire({
             title: 'Reset password error',
             text: err.message,

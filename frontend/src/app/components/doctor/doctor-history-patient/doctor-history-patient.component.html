@@ -37,7 +37,7 @@
               <small>Medical Examination</small>
             </a>
           </li>
-                    <li>
+          <li>
             <a routerLink="/doctor-schedule">
               <span><i class="uil uil-calender"></i></span>
               <small>Schedule</small>
@@ -201,10 +201,7 @@
           <div class="record-header">
             <div class="add">
               <button
-                [routerLink]="[
-                  '/doctor-add-medical-examination',
-                  appointmentID
-                ]"
+                [routerLink]="['/doctor-add-medical-examination']"
                 style="background-color: #009bab"
               >
                 Back To Add Medical Examination

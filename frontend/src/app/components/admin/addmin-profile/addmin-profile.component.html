@@ -105,9 +105,22 @@
                       profileForm.controls['user_fullName'].dirty &&
                       profileForm.hasError('required', 'user_fullName')
                     "
+                    else
+                    lengthname
                     class="text-danger"
                     >Full Name is required</small
                   >
+                  <ng-template #lengthname>
+                    <small
+                      *ngIf="
+                        profileForm.controls['user_fullName'].dirty &&
+                        profileForm.hasError('maxlength', 'user_fullName')
+                      "
+                      class="text-danger"
+                    >
+                      Full name can't exceed 255 characters</small
+                    >
+                  </ng-template>
                 </div>
 
                 <div class="input-box">
@@ -150,10 +163,21 @@
                     *ngIf="
                       profileForm.controls['user_address'].dirty &&
                       profileForm.hasError('required', 'user_address')
-                    "
+                    " else lengthaddress
                     class="text-danger"
                     >Address is required</small
                   >
+                  <ng-template #lengthaddress>
+                    <small
+                      *ngIf="
+                        profileForm.controls['user_address'].dirty &&
+                        profileForm.hasError('maxlength', 'user_address')
+                      "
+                      class="text-danger"
+                    >
+                      Address can't exceed 255 characters</small
+                    >
+                  </ng-template>
                 </div>
 
                 <div class="input-box">

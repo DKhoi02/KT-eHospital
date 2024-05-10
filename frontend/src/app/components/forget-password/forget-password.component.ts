@@ -35,10 +35,26 @@ export class ForgetPasswordComponent implements OnInit {
 
   onForgetPassword() {
     if (this.ForgetPasswordForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.resetService
         .sendResetPasswordLink(this.ForgetPasswordForm.get('user_email')?.value)
         .subscribe({
           next: (res) => {
+            Swal.close();
             Swal.fire(
               'Reset password link sent successfully',
               'The reset link has been sent to you. Please check your email.',
@@ -46,6 +62,7 @@ export class ForgetPasswordComponent implements OnInit {
             );
           },
           error: (err) => {
+            Swal.close();
             Swal.fire(
               'Failed to send reset password link',
               'The email address you provided is incorrect. Please enter your email again.',

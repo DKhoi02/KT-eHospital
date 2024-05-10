@@ -103,6 +103,21 @@ export class AddNewBlogComponent implements OnInit {
 
   onAddNewMedicine() {
     if (this.AddNewBlogForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       if (this.fileToContent != undefined && this.fileToImg != undefined) {
         const contentBlob = new Blob([this.fileToContent], {
           type: this.fileToContent.type,
@@ -122,6 +137,7 @@ export class AddNewBlogComponent implements OnInit {
 
         this.blogService.addNewBlog(formData).subscribe(
           (res) => {
+            Swal.close();
             this.AddNewBlogForm.reset();
             this.router.navigate(['manager-blog']);
             Swal.fire({
@@ -133,6 +149,7 @@ export class AddNewBlogComponent implements OnInit {
             });
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Add new blog unsuccessful',
               text: err.message,
@@ -141,6 +158,7 @@ export class AddNewBlogComponent implements OnInit {
           }
         );
       } else {
+        Swal.close();
         Swal.fire({
           title: 'Add new blog unsuccessful',
           text: 'Please enter blog content and blog image',

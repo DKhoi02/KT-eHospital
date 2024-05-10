@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
@@ -40,7 +41,8 @@ export class PatientAppointmentComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleService,
     private sanitizer: DomSanitizer,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -126,117 +128,13 @@ export class PatientAppointmentComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
   }
 
+  patientViewAppointment(id: number){
+    this.dataService.setPatientViewAppointment(id.toString())
+    this.router.navigate(['patient-view-appointment'])
+  }
+
   onSignOut() {
     this.auth.signOut();
-  }
-
-  onResetStatus(id: number) {
-    Swal.fire({
-      title: 'Are you sure reset appointment?',
-      text: '',
-      icon: 'success',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.appointmentService.resetStatusAppointment(id).subscribe(
-          (res) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Reset appointment successfully',
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            this.appointmentService
-              .getAllAppointmentByManager()
-              .subscribe((res: any) => {
-                this.lstData = res.reverse();
-                this.convertToString();
-                if (this.searchData == '') {
-                  this.lstUser = this.lstData;
-                } else {
-                  this.lstUser = this.lstData
-                    .reverse()
-                    .filter((medicine: any) =>
-                      Object.values(medicine).some(
-                        (value) =>
-                          typeof value === 'string' &&
-                          value.toLowerCase().includes(this.searchData)
-                      )
-                    );
-                  this.highlightKeyword(this.searchData);
-                }
-              });
-          },
-          (err) => {
-            Swal.fire({
-              title: 'Reset appointment unsuccessful',
-              text: err.message,
-              icon: 'error',
-            });
-          }
-        );
-      }
-    });
-  }
-
-  onView(id: number) {}
-  onCancel(id: number) {
-    Swal.fire({
-      title: 'Are you sure cancel appointment?',
-      text: '',
-      icon: 'success',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm',
-      reverseButtons: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.appointmentService.cancelAppointment(id).subscribe(
-          (res) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Cancel appointment successfully',
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            this.appointmentService
-              .getAllAppointmentByManager()
-              .subscribe((res: any) => {
-                this.lstData = res.reverse();
-                this.convertToString();
-                if (this.searchData == '') {
-                  this.lstUser = this.lstData;
-                } else {
-                  this.lstUser = this.lstData
-                    .reverse()
-                    .filter((medicine: any) =>
-                      Object.values(medicine).some(
-                        (value) =>
-                          typeof value === 'string' &&
-                          value.toLowerCase().includes(this.searchData)
-                      )
-                    );
-                  this.highlightKeyword(this.searchData);
-                }
-              });
-          },
-          (err) => {
-            Swal.fire({
-              title: 'Cancel appointment unsuccessful',
-              text: err.message,
-              icon: 'error',
-            });
-          }
-        );
-      }
-    });
   }
 
   handleFileInput(event: any) {

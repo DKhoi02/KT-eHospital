@@ -56,15 +56,15 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.viewProfileForm = this.fb.group({
-      user_fullName: [''],
-      user_email: [''],
-      user_phoneNumber: [''],
-      user_birthDate: [''],
-      user_address: [''],
-      user_gender: [''],
+      user_fullName: [{ value: '', disabled: true }],
+      user_email: [{ value: '', disabled: true }],
+      user_phoneNumber: [{ value: '', disabled: true }],
+      user_birthDate: [{ value: '', disabled: true }],
+      user_address: [{ value: '', disabled: true }],
+      user_gender: [{ value: '', disabled: true }],
+      user_quantity_canceled: [{ value: '', disabled: true }],
+      user_role_name: [{ value: '', disabled: true }],
       user_status: [''],
-      user_quantity_canceled: [''],
-      user_role_name: [''],
     });
 
     this.userStore.getEmailFromStore().subscribe((val) => {
@@ -133,7 +133,23 @@ export class AdminHomeComponent implements OnInit {
   }
 
   onView(user_email: string) {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     this.user.getCurrentUser(user_email).subscribe((res) => {
+      Swal.close();
       this.viewUser = res;
       const role_name = this.lstData.find(
         (item: any) => item.user_email == user_email
@@ -156,6 +172,21 @@ export class AdminHomeComponent implements OnInit {
   }
 
   onSaveStatus() {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     this.user
       .updateStatusUser(
         this.viewProfileForm.get('user_email')?.value,
@@ -164,6 +195,7 @@ export class AdminHomeComponent implements OnInit {
       .subscribe(
         (res) => {
           this.user.getAllUser().subscribe((res) => {
+            Swal.close();
             this.lstData = res;
             if (this.searchData == '') {
               this.lstUser = this.lstData;
@@ -188,6 +220,7 @@ export class AdminHomeComponent implements OnInit {
           });
         },
         (err) => {
+          Swal.close();
           Swal.fire({
             title: 'Update status unsuccessful',
             text: 'Update status unsuccessful. Please try again.',

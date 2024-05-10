@@ -12,6 +12,7 @@ import ValidateForm from 'src/app/helpers/validateForms';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { PrescriptionService } from 'src/app/services/prescription.service';
 import { RoleService } from 'src/app/services/role.service';
@@ -65,7 +66,8 @@ export class AddPrescriptionComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private appointmentService: AppointmentService,
     private medicineService: MedicineService,
-    private prescriptionService: PrescriptionService
+    private prescriptionService: PrescriptionService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -76,9 +78,11 @@ export class AddPrescriptionComponent implements OnInit {
       medicine_eachtime_pill: ['', [Validators.required, this.checkNumber()]],
     });
 
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.appointmentID = +params['id'];
-    });
+    // this.activatedRouter.params.subscribe((params: any) => {
+    //   this.appointmentID = +params['id'];
+    // });
+
+    this.appointmentID = +this.dataService.getDoctorAddPrescription();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -178,6 +182,21 @@ export class AddPrescriptionComponent implements OnInit {
 
   onSave() {
     if (this.patientForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.prescriptionService
         .addPrescription(
           this.currentUser,
@@ -189,6 +208,7 @@ export class AddPrescriptionComponent implements OnInit {
         )
         .subscribe(
           (res) => {
+            Swal.close();
             this.prescriptionService
               .getAllAppointmentByID(this.appointmentID)
               .subscribe((res) => {
@@ -220,6 +240,7 @@ export class AddPrescriptionComponent implements OnInit {
             this.patientForm.reset();
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Add unsuccessful',
               text: err.message,

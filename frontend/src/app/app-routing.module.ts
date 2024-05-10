@@ -64,7 +64,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'disease-prediction', component: DiseasePredictionComponent },
-  { path: 'view-blog/:id', component: ViewBlogComponent },
+  { path: 'view-blog', component: ViewBlogComponent },
   { path: 'blog-search', component: BlogSearchComponent },
   // admin
   {
@@ -100,7 +100,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'admin-add-update-schedule/:chooseDate',
+    path: 'admin-add-update-schedule',
     component: AddUpdateScheduleComponent,
     canActivate: [AuthGuard],
     data: {
@@ -166,7 +166,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'pharmacist-add-confirm-appointment/:id',
+    path: 'pharmacist-add-confirm-appointment',
     component: PharmacistAddConfirmAppointmentComponent,
     canActivate: [AuthGuard],
     data: {
@@ -184,7 +184,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'doctor-add-medical-examination/:id',
+    path: 'doctor-add-medical-examination',
     component: AddMedicalExaminationComponent,
     canActivate: [AuthGuard],
     data: {
@@ -192,7 +192,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'doctor-add-prescription/:id',
+    path: 'doctor-add-prescription',
     component: AddPrescriptionComponent,
     canActivate: [AuthGuard],
     data: {
@@ -208,7 +208,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'doctor-history-patient/:id',
+    path: 'doctor-history-patient',
     component: DoctorHistoryPatientComponent,
     canActivate: [AuthGuard],
     data: {
@@ -216,20 +216,12 @@ const routes: Routes = [
     },
   },
   {
-    path: 'doctor-detail/:email',
+    path: 'doctor-detail',
     component: DoctorDetailComponent,
-    canActivate: [AuthGuard],
-    data: {
-      expectedRole: 'Doctor',
-    },
   },
   {
     path: 'doctor-search',
     component: DoctorSearchComponent,
-    canActivate: [AuthGuard],
-    data: {
-      expectedRole: 'Doctor',
-    },
   },
   {
     path: 'doctor-schedule',
@@ -240,7 +232,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'doctor-view-schedule/:chooseDate',
+    path: 'doctor-view-schedule',
     component: DoctorViewScheduleComponent,
     canActivate: [AuthGuard],
     data: {
@@ -258,7 +250,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'manager-change-appointment/:id',
+    path: 'manager-change-appointment',
     component: ManageChangeAppointmentComponent,
     canActivate: [AuthGuard],
     data: {
@@ -306,7 +298,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'manager-view-blog/:id',
+    path: 'manager-view-blog',
     component: ManagerViewBlogComponent,
     canActivate: [AuthGuard],
     data: {
@@ -332,7 +324,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'patient-view-appointment/:id',
+    path: 'patient-view-appointment',
     component: PatientViewAppointmentComponent,
     canActivate: [AuthGuard],
     data: {
@@ -342,8 +334,6 @@ const routes: Routes = [
 
   { path: '**', component: NotFoundComponent },
 ];
-
-// , canActivate: [authGuard]
 
 bootstrapApplication(AppComponent, {
   providers: [provideRouter(routes, withHashLocation())],

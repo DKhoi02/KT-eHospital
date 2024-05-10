@@ -4,6 +4,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { RoomService } from 'src/app/services/room.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
@@ -55,19 +56,17 @@ export class DoctorViewScheduleComponent implements OnInit {
     private roomService: RoomService,
     private scheduleService: ScheduleService,
     private activatedRouter: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
-
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.chooseDate = params['chooseDate'];
+      this.chooseDate = this.dataService.getDoctorViewSchedule();
       this.checkDate =
         new Date(this.chooseDate).setHours(0, 0, 0, 0) >=
         new Date().setHours(0, 0, 0, 0)
           ? true
           : false;
-    });
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();

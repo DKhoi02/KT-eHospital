@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import ValidateForm from 'src/app/helpers/validateForms';
@@ -40,7 +45,7 @@ export class AddNewAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.AddNewAccountForm = this.fb.group({
-      user_fullName: ['', [Validators.required]],
+      user_fullName: ['', [Validators.required, Validators.maxLength(255)]],
       user_email: [
         '',
         [
@@ -53,7 +58,7 @@ export class AddNewAccountComponent implements OnInit {
         [Validators.required, Validators.pattern('^(03|05|07|08|09)[0-9]{8}$')],
       ],
       user_birthDate: ['', [Validators.required, this.birthdateValidator()]],
-      user_address: ['', Validators.required],
+      user_address: ['', [Validators.required, Validators.maxLength(255)]],
       user_gender: ['Male'],
       user_role_id: ['', Validators.required],
       user_password: [
@@ -120,12 +125,26 @@ export class AddNewAccountComponent implements OnInit {
     this.auth.signOut();
   }
 
-  onAddNewAccount(){
-    if(this.AddNewAccountForm.valid){
+  onAddNewAccount() {
+    if (this.AddNewAccountForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       enum status {
         UnLock,
       }
-
       let userSignUp = {
         user_fullName:
           this.AddNewAccountForm.get('user_fullName')?.value.trim(),
@@ -144,15 +163,17 @@ export class AddNewAccountComponent implements OnInit {
       };
       this.auth.signUp(userSignUp).subscribe(
         (response) => {
+          Swal.close();
           this.AddNewAccountForm.reset();
           Swal.fire('Add New Account successfully', '', 'success');
           this.router.navigate(['admin-account']);
         },
         (error: any) => {
+          Swal.close();
           Swal.fire('Add New Account Failed', error.message, 'error');
         }
       );
-    } else{
+    } else {
       ValidateForm.validateAllFormFields(this.AddNewAccountForm);
     }
   }

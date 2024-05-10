@@ -32,7 +32,7 @@
             </a>
           </li>
           <li>
-            <a routerLink="/admin-account" >
+            <a routerLink="/admin-account">
               <span><i class="uil uil-user"></i></span>
               <small>Account</small>
             </a>
@@ -116,10 +116,24 @@
                         *ngIf="
                           AddNewRoomForm.controls['room_name'].dirty &&
                           AddNewRoomForm.hasError('required', 'room_name')
-                        "
+                        " else lengthroom
                         class="text-danger"
                         >Room is required</small
                       >
+                      <ng-template #lengthroom>
+                        <small
+                          *ngIf="
+                            AddNewRoomForm.controls['room_name'].dirty &&
+                            AddNewRoomForm.hasError(
+                              'maxlength',
+                              'room_name'
+                            )
+                          "
+                          class="text-danger"
+                        >
+                          Room name can't exceed 255 characters</small
+                        >
+                      </ng-template>
                     </div>
                   </div>
 

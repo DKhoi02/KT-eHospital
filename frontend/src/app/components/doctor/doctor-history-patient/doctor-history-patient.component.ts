@@ -7,6 +7,7 @@ import ValidateForm from 'src/app/helpers/validateForms';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { PrescriptionService } from 'src/app/services/prescription.service';
 import { RoleService } from 'src/app/services/role.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -71,13 +72,16 @@ export class DoctorHistoryPatientComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private appointmentService: AppointmentService,
-    private prescriptionService: PrescriptionService
+    private prescriptionService: PrescriptionService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.appointmentID = +params['id'];
-    });
+    // this.activatedRouter.params.subscribe((params: any) => {
+    //   this.appointmentID = +params['id'];
+    // });
+
+    this.appointmentID = +this.dataService.getDoctorHistoryPatient()
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();

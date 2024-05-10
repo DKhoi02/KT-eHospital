@@ -128,6 +128,21 @@ export class AdminRoomComponent implements OnInit {
   }
 
   onSaveStatus() {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     this.roomService
       .updateStatusRoom(
         this.viewRoomForm.get('room_id')?.value,
@@ -136,6 +151,7 @@ export class AdminRoomComponent implements OnInit {
       )
       .subscribe(
         (res) => {
+          Swal.close();
           this.roomService.getRooms().subscribe((res) => {
             this.lstData = res;
             if (this.searchData == '') {
@@ -161,6 +177,7 @@ export class AdminRoomComponent implements OnInit {
           });
         },
         (err) => {
+          Swal.close();
           Swal.fire({
             title: 'Update room unsuccessful',
             text: 'Update room unsuccessful. Please try again.',

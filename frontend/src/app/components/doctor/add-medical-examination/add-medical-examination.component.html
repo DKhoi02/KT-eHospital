@@ -217,7 +217,7 @@
                       : { itemsPerPage: pageSize, currentPage: currentPage }
                 "
               >
-                <tr [routerLink]="['/doctor-history-patient', data.id]">
+                <tr (click)="doctorHistoryPatient(data.id)">
                   <td
                     [innerHTML]="
                       highlightKeyword((data.date | date : 'yyyy/MM/dd') || '')

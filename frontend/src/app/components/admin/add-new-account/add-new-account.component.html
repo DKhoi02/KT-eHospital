@@ -120,9 +120,25 @@
                             'user_fullName'
                           )
                         "
+                        else
+                        lengthfullname
                         class="text-danger"
                         >Full Name is required</small
                       >
+                      <ng-template #lengthfullname>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_fullName'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'maxlength',
+                              'user_fullName'
+                            )
+                          "
+                          class="text-danger"
+                        >
+                          Fullname can't exceed 255 characters</small
+                        >
+                      </ng-template>
                     </div>
 
                     <div class="input-box">
@@ -168,10 +184,24 @@
                         *ngIf="
                           AddNewAccountForm.controls['user_address'].dirty &&
                           AddNewAccountForm.hasError('required', 'user_address')
-                        "
+                        " else lengthaddress
                         class="text-danger"
                         >Address is required</small
                       >
+                      <ng-template #lengthaddress>
+                        <small
+                          *ngIf="
+                            AddNewAccountForm.controls['user_address'].dirty &&
+                            AddNewAccountForm.hasError(
+                              'maxlength',
+                              'user_address'
+                            )
+                          "
+                          class="text-danger"
+                        >
+                          Address can't exceed 255 characters</small
+                        >
+                      </ng-template>
                     </div>
 
                     <div class="input-box">
@@ -331,9 +361,7 @@
                     </div>
 
                     <div class="input-box">
-                      <label
-                        for="birthday"
-                        style="font-weight: 500; color: var(--grey-color)"
+                      <label style="font-weight: 500; color: var(--grey-color)"
                         >Confirm Password</label
                       >
                       <input

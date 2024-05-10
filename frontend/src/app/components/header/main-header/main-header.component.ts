@@ -142,12 +142,30 @@ export class MainHeaderComponent implements OnInit {
     }
   }
 
+// https://sweetalert2.github.io/images/nyan-cat.gif
+
   onBook() {
     if (
       this.appointmentForm.valid &&
       this.quantityBooked > 0 &&
       !this.isChooseDateError
     ) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
+
       this.appointment
         .bookAppointment(
           this.appointmentForm.get('appointment_time')?.value,
@@ -156,6 +174,7 @@ export class MainHeaderComponent implements OnInit {
         .subscribe(
           (res) => {
             this.appointmentForm.reset();
+            Swal.close();
             Swal.fire({
               title: 'Book Appointment successfully',
               text: 'To learn more details about your booked appointment, please navigate to the appointment details page.',
@@ -172,6 +191,7 @@ export class MainHeaderComponent implements OnInit {
             });
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Book appointment already exists',
               text: err.message,

@@ -104,6 +104,21 @@ export class AddNewMedicineComponent implements OnInit {
 
   onAddNewMedicine() {
     if (this.AddNewMedicineForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       enum Medicine_status {
         Available,
         Unavailable,
@@ -114,8 +129,7 @@ export class AddNewMedicineComponent implements OnInit {
         medicine_quantity:
           this.AddNewMedicineForm.get('medicine_quantity')?.value,
         medicine_price: this.AddNewMedicineForm.get('medicine_price')?.value,
-        medicine_image:
-          'https://localhost:7072/MedicineImgs/notfound.png',
+        medicine_image: 'https://localhost:7072/MedicineImgs/notfound.png',
         medicine_date: new Date(),
         medicine_description: this.AddNewMedicineForm.get(
           'medicine_description'
@@ -127,6 +141,7 @@ export class AddNewMedicineComponent implements OnInit {
       };
       this.medicineService.addNewMedicine(medicine).subscribe(
         (response: any) => {
+          Swal.close();
           if (this.fileToMedicine !== undefined) {
             this.medicineService
               .uploadMedicineImage(this.fileToMedicine, response.medicine_id)
@@ -145,6 +160,7 @@ export class AddNewMedicineComponent implements OnInit {
           this.router.navigate(['pharmacist-medicine']);
         },
         (error: any) => {
+          Swal.close();
           Swal.fire('Add New Medicine Failed', error.message, 'error');
         }
       );

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
+import { DataService } from 'src/app/services/data.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
@@ -39,14 +40,13 @@ export class ManagerViewBlogComponent implements OnInit {
     private router: Router,
     private user: UserService,
     private blogService: BlogService,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.blogID = +params['id'];
 
-    });
+    this.blogID = +this.dataService.getManagerViewBlog()
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();

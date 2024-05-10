@@ -39,7 +39,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
-      user_fullName: ['', [Validators.required]],
+      user_fullName: ['', [Validators.required, Validators.maxLength(255)]],
       user_email: [
         '',
         [
@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
         [Validators.required, Validators.pattern('^(03|05|07|08|09)[0-9]{8}$')],
       ],
       user_birthDate: ['', [Validators.required, this.birthdateValidator()]],
-      user_address: ['', Validators.required],
+      user_address: ['', [Validators.required, Validators.maxLength(255)]],
       user_gender: [''],
     });
     this.userStore.getEmailFromStore().subscribe((val) => {
@@ -138,6 +138,21 @@ export class ProfileComponent implements OnInit {
 
   onSave() {
     if (this.profileForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.userModel.user_fullName = this.profileForm
         .get('user_fullName')
         ?.value.trim();
@@ -158,6 +173,7 @@ export class ProfileComponent implements OnInit {
 
       this.user.updateProfile(this.userModel).subscribe(
         (res) => {
+          Swal.close();
           this.auth.storeToken(res.accessToken);
           this.auth.storeRefreshToken(res.refreshToken);
           const tokenPayLoad = this.auth.decodedToken();
@@ -184,6 +200,7 @@ export class ProfileComponent implements OnInit {
           });
         },
         (err) => {
+          Swal.close();
           Swal.fire('Update Profile Failed', err.message, 'error');
         }
       );

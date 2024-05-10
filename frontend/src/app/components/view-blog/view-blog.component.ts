@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
+import { DataService } from 'src/app/services/data.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,21 +25,18 @@ export class ViewBlogComponent implements OnInit {
     private userService: UserService,
     private auth: AuthService,
     private userStore: UserStoreService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.blogID = +params['id'];
-    });
 
-  
+    this.blogID = +this.dataService.getViewBlog();
+
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
       this.currentUser = val || emailFromToken;
     });
-
-    console.log(this.blogID)
 
     this.blogService.getRecomment(this.blogID).subscribe((res: any) => {
       this.lstRecomment = res;

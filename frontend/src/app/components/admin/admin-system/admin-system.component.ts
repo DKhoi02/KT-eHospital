@@ -101,15 +101,32 @@ export class AdminSystemComponent implements OnInit {
 
   onSave() {
     if (this.systemForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.systemService
         .updateQuantityAppointment(
           this.systemForm.get('quantity_appointment')?.value
         )
         .subscribe(
           (response) => {
+            Swal.close();
             Swal.fire('Update successfully', '', 'success');
           },
           (error: any) => {
+            Swal.close();
             Swal.fire('Update Failed', error.message, 'error');
           }
         );

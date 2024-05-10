@@ -135,7 +135,7 @@
                   <td>
                     <div class="actions">
                       <span
-                        [routerLink]="['/manager-view-blog', blog.blog_id]"
+                      (click)="managerViewBlog(blog.blog_id)"
                         style="cursor: pointer; margin-right: 15%"
                         ><i class="uil uil-eye" style="color: #009bab"></i
                       ></span>

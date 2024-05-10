@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +13,11 @@ export class DoctorSearchComponent implements OnInit {
   lstDoctors: any = [];
   keySearch = '';
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private dataService: DataService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.userService.getAllEmployee().subscribe((res) => {
@@ -52,5 +58,10 @@ export class DoctorSearchComponent implements OnInit {
         }
       }
     });
+  }
+
+  doctorDetail(user_email: string) {
+    this.dataService.setDoctorDetail(user_email);
+    this.router.navigate(['doctor-detail']);
   }
 }

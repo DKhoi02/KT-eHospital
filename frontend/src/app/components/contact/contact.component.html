@@ -114,9 +114,22 @@
                     ContactForm.controls['name'].dirty &&
                     ContactForm.hasError('required', 'name')
                   "
+                  else
+                  lengthname
                   class="text-danger"
                   >Your Name is required</small
                 >
+                <ng-template #lengthname>
+                  <small
+                    *ngIf="
+                      ContactForm.controls['name'].dirty &&
+                      ContactForm.hasError('maxlength', 'name')
+                    "
+                    class="text-danger"
+                  >
+                    Name can't exceed 100 characters</small
+                  >
+                </ng-template>
               </div>
               <div class="col-12 col-sm-6">
                 <input
@@ -160,9 +173,22 @@
                     ContactForm.controls['subject'].dirty &&
                     ContactForm.hasError('required', 'subject')
                   "
+                  else
+                  lengthsubject
                   class="text-danger"
                   >Subject is required</small
                 >
+                <ng-template #lengthsubject>
+                  <small
+                    *ngIf="
+                      ContactForm.controls['subject'].dirty &&
+                      ContactForm.hasError('maxlength', 'subject')
+                    "
+                    class="text-danger"
+                  >
+                    Subject can't exceed 100 characters</small
+                  >
+                </ng-template>
               </div>
               <div class="col-12">
                 <textarea
@@ -175,10 +201,21 @@
                   *ngIf="
                     ContactForm.controls['message'].dirty &&
                     ContactForm.hasError('required', 'message')
-                  "
+                  " else lengthmessage
                   class="text-danger"
                   >Message is required</small
                 >
+                <ng-template #lengthmessage>
+                  <small
+                    *ngIf="
+                      ContactForm.controls['message'].dirty &&
+                      ContactForm.hasError('maxlength', 'message')
+                    "
+                    class="text-danger"
+                  >
+                    Message can't exceed 2000 characters</small
+                  >
+                </ng-template>
               </div>
               <div class="col-12">
                 <button

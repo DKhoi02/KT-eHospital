@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import ValidateForm from 'src/app/helpers/validateForms';
@@ -42,7 +47,7 @@ export class AddNewRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.AddNewRoomForm = this.fb.group({
-      room_name: ['', [Validators.required]],
+      room_name: ['', [Validators.required, Validators.maxLength(255)]],
       room_status: ['Available'],
     });
 
@@ -79,17 +84,38 @@ export class AddNewRoomComponent implements OnInit {
 
   onAddNewRoom() {
     if (this.AddNewRoomForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
 
-      this.roomService.addNewRoom(this.AddNewRoomForm.get('room_name')?.value.trim(), this.AddNewRoomForm.get('room_status')?.value.trim()).subscribe(
-        (response) => {
-          this.AddNewRoomForm.reset();
-          Swal.fire('Add New Room successfully', '', 'success');
-          this.router.navigate(['admin-room']);
-        },
-        (error: any) => {
-          Swal.fire('Add New Room Failed', error.message, 'error');
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
         }
-      );
+      }, 500);
+      this.roomService
+        .addNewRoom(
+          this.AddNewRoomForm.get('room_name')?.value.trim(),
+          this.AddNewRoomForm.get('room_status')?.value.trim()
+        )
+        .subscribe(
+          (response) => {
+            Swal.close();
+            this.AddNewRoomForm.reset();
+            Swal.fire('Add New Room successfully', '', 'success');
+            this.router.navigate(['admin-room']);
+          },
+          (error: any) => {
+            Swal.close();
+            Swal.fire('Add New Room Failed', error.message, 'error');
+          }
+        );
     } else {
       ValidateForm.validateAllFormFields(this.AddNewRoomForm);
     }

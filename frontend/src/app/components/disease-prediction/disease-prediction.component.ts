@@ -203,37 +203,53 @@ export class DiseasePredictionComponent implements OnInit {
 
   onFinish() {
     if (this.lstSymptomed.length > 0) {
-      this.machineLearning.diseasePrediction(this.lstSymptomed).subscribe((res) => {
-        this.lstDisease = res;
-        this.diseaseTop1Name = Object.keys(this.lstDisease[0])[0];
-        this.diseaseTop1Percent = Object.values(this.lstDisease[0])[0];
-        this.diseaseTop2Name = Object.keys(this.lstDisease[1])[0];
-        this.diseaseTop2Percent = Object.values(this.lstDisease[1])[0];
-        this.diseaseTop3Name = Object.keys(this.lstDisease[2])[0];
-        this.diseaseTop3Percent = Object.values(this.lstDisease[2])[0];
-        this.diseaseTop4Name = Object.keys(this.lstDisease[3])[0];
-        this.diseaseTop4Percent = Object.values(this.lstDisease[3])[0];
-        this.diseaseTop5Name = Object.keys(this.lstDisease[4])[0];
-        this.diseaseTop5Percent = Object.values(this.lstDisease[4])[0];
-        const total =
-          this.diseaseTop1Percent +
-          this.diseaseTop2Percent +
-          this.diseaseTop3Percent +
-          this.diseaseTop4Percent +
-          this.diseaseTop5Percent;
-        this.diseaseTop1Percent = (
-          (this.diseaseTop1Percent * 100) /
-          total
-        ).toFixed(2) + " %";
-        this.diseaseTop2Percent =
-          ((this.diseaseTop2Percent * 100) / total).toFixed(2) + ' %';
-        this.diseaseTop3Percent =
-          ((this.diseaseTop3Percent * 100) / total).toFixed(2) + ' %';
-        this.diseaseTop4Percent =
-          ((this.diseaseTop4Percent * 100) / total).toFixed(2) + ' %';
-        this.diseaseTop5Percent =
-          ((this.diseaseTop5Percent * 100) / total).toFixed(2) + ' %';
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
       });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
+      this.machineLearning
+        .diseasePrediction(this.lstSymptomed)
+        .subscribe((res) => {
+          Swal.close();
+          this.lstDisease = res;
+          this.diseaseTop1Name = Object.keys(this.lstDisease[0])[0];
+          this.diseaseTop1Percent = Object.values(this.lstDisease[0])[0];
+          this.diseaseTop2Name = Object.keys(this.lstDisease[1])[0];
+          this.diseaseTop2Percent = Object.values(this.lstDisease[1])[0];
+          this.diseaseTop3Name = Object.keys(this.lstDisease[2])[0];
+          this.diseaseTop3Percent = Object.values(this.lstDisease[2])[0];
+          this.diseaseTop4Name = Object.keys(this.lstDisease[3])[0];
+          this.diseaseTop4Percent = Object.values(this.lstDisease[3])[0];
+          this.diseaseTop5Name = Object.keys(this.lstDisease[4])[0];
+          this.diseaseTop5Percent = Object.values(this.lstDisease[4])[0];
+          const total =
+            this.diseaseTop1Percent +
+            this.diseaseTop2Percent +
+            this.diseaseTop3Percent +
+            this.diseaseTop4Percent +
+            this.diseaseTop5Percent;
+          this.diseaseTop1Percent =
+            ((this.diseaseTop1Percent * 100) / total).toFixed(2) + ' %';
+          this.diseaseTop2Percent =
+            ((this.diseaseTop2Percent * 100) / total).toFixed(2) + ' %';
+          this.diseaseTop3Percent =
+            ((this.diseaseTop3Percent * 100) / total).toFixed(2) + ' %';
+          this.diseaseTop4Percent =
+            ((this.diseaseTop4Percent * 100) / total).toFixed(2) + ' %';
+          this.diseaseTop5Percent =
+            ((this.diseaseTop5Percent * 100) / total).toFixed(2) + ' %';
+        });
     } else {
       Swal.fire({
         title: "Can't desease prediction",
@@ -246,15 +262,15 @@ export class DiseasePredictionComponent implements OnInit {
   onReset() {
     this.lstSymptoms = this.lstSymptomData;
     this.lstSymptomed = [];
-    this.diseaseTop1Name = ''
-    this.diseaseTop1Percent = ''
-    this.diseaseTop2Name = ''
-    this.diseaseTop2Percent = ''
-    this.diseaseTop3Name = ''
-    this.diseaseTop3Percent = ''
-    this.diseaseTop4Name = ''
-    this.diseaseTop4Percent = ''
-    this.diseaseTop5Name = ''
-    this.diseaseTop5Percent = ''
+    this.diseaseTop1Name = '';
+    this.diseaseTop1Percent = '';
+    this.diseaseTop2Name = '';
+    this.diseaseTop2Percent = '';
+    this.diseaseTop3Name = '';
+    this.diseaseTop3Percent = '';
+    this.diseaseTop4Name = '';
+    this.diseaseTop4Percent = '';
+    this.diseaseTop5Name = '';
+    this.diseaseTop5Percent = '';
   }
 }

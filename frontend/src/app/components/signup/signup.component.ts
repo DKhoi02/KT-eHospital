@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.SignUpForm = this.fb.group({
-      user_fullName: ['', [Validators.required]],
+      user_fullName: ['', [Validators.required, Validators.maxLength(255)]],
       user_email: [
         '',
         [
@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
         [Validators.required, Validators.pattern('^(03|05|07|08|09)[0-9]{8}$')],
       ],
       user_birthDate: ['', [Validators.required, this.birthdateValidator()]],
-      user_address: ['', Validators.required],
+      user_address: ['', [Validators.required, Validators.maxLength(255)]],
       user_gender: ['Male'],
       user_password: [
         '',
@@ -67,8 +67,25 @@ export class SignupComponent implements OnInit {
 
   onSignUp() {
     if (this.SignUpForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
 
-      enum status {UnLock}
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
+
+      enum status {
+        UnLock,
+      }
 
       let userSignUp = {
         user_fullName: this.SignUpForm.get('user_fullName')?.value.trim(),
@@ -81,17 +98,19 @@ export class SignupComponent implements OnInit {
           /\s/g,
           ''
         ),
-        user_image: "avatar",
+        user_image: 'avatar',
         user_status: status.UnLock,
-        user_quantity_canceled: 0
+        user_quantity_canceled: 0,
       };
       this.auth.signUp(userSignUp).subscribe(
         (response) => {
+          Swal.close();
           this.SignUpForm.reset();
-          Swal.fire('Registration successfully', 'Sing In Now' , 'success');
+          Swal.fire('Registration successfully', 'Sing In Now', 'success');
           this.router.navigate(['signin']);
         },
         (error: any) => {
+          Swal.close();
           Swal.fire('Registration Failed', error.message, 'error');
         }
       );
@@ -100,4 +119,3 @@ export class SignupComponent implements OnInit {
     }
   }
 }
-

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from 'src/app/services/blog.service';
+import { DataService } from 'src/app/services/data.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -53,7 +54,8 @@ export class ManagerBlogComponent implements OnInit {
     private roleService: RoleService,
     private sanitizer: DomSanitizer,
     private medicineService: MedicineService,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -153,6 +155,11 @@ export class ManagerBlogComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
   }
 
+  managerViewBlog(id: number) {
+    this.dataService.setManagerViewBlog(id.toString());
+    this.router.navigate(['manager-view-blog']);
+  }
+
   onSignOut() {
     this.auth.signOut();
   }
@@ -160,7 +167,7 @@ export class ManagerBlogComponent implements OnInit {
   onView(id: number) {
     this.blogService.getBlogByID(id).subscribe((res) => {
       this.viewBlog = res;
-      console.log(this.viewBlog)
+      console.log(this.viewBlog);
       this.img = this.viewBlog.img;
       this.idBlog = this.viewBlog.id;
       this.UpdateBlogForm.patchValue({
@@ -172,6 +179,21 @@ export class ManagerBlogComponent implements OnInit {
   }
 
   onSave() {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     const formData: FormData = new FormData();
 
     if (this.fileToContent != undefined) {
@@ -194,6 +216,7 @@ export class ManagerBlogComponent implements OnInit {
 
     this.blogService.updateBlog(formData).subscribe(
       (res) => {
+        Swal.close();
         this.blogService.getAllBlog().subscribe((res) => {
           this.lstData = res;
           this.convertToString();
@@ -208,6 +231,7 @@ export class ManagerBlogComponent implements OnInit {
         });
       },
       (err) => {
+        Swal.close();
         Swal.fire({
           title: 'Update blog unsuccessful',
           text: err.message,

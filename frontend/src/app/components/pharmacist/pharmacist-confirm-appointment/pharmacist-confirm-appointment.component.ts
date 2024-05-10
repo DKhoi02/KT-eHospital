@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
@@ -40,7 +41,8 @@ export class PharmacistConfirmAppointmentComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleService,
     private sanitizer: DomSanitizer,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -124,11 +126,14 @@ export class PharmacistConfirmAppointmentComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
   }
 
+  pharmacistAddConfirmAppointment(id:number){
+    this.dataService.setPharmacistAddConfirmAppointment(id.toString());
+    this.router.navigate(['pharmacist-add-confirm-appointment'])
+  }
+
   onSignOut() {
     this.auth.signOut();
   }
-
-  onView(user_email: string) {}
 
   handleFileInput(event: any) {
     const fileToUpload: File = event.target.files[0];

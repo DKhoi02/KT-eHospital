@@ -12,6 +12,7 @@ import ValidateForm from 'src/app/helpers/validateForms';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { RoomService } from 'src/app/services/room.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
@@ -70,7 +71,8 @@ export class AddMedicalExaminationComponent implements OnInit {
     private scheduleService: ScheduleService,
     private activatedRouter: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -81,9 +83,7 @@ export class AddMedicalExaminationComponent implements OnInit {
       ],
     });
 
-    this.activatedRouter.params.subscribe((params: any) => {
-      this.appointmentID = +params['id'];
-    });
+    this.appointmentID = +this.dataService.getDoctorAddMedicalExamination();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -164,8 +164,28 @@ export class AddMedicalExaminationComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
   }
 
+  doctorHistoryPatient(id: number) {
+    this.dataService.setDoctorHistoryPatient(id.toString());
+    this.router.navigate(['doctor-history-patient']);
+  }
+
   onSave() {
     if (this.patientForm.valid) {
+      Swal.fire({
+        html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+        width: 0,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => {
+        const image = document.getElementById('image');
+        if (image) {
+          image.style.display = 'block';
+        }
+      }, 500);
       this.appointmentService
         .addSymptom(
           this.appointmentID,
@@ -174,6 +194,7 @@ export class AddMedicalExaminationComponent implements OnInit {
         )
         .subscribe(
           (res) => {
+            Swal.close();
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -182,12 +203,13 @@ export class AddMedicalExaminationComponent implements OnInit {
               timer: 2000,
             });
             this.patientForm.reset();
-            this.router.navigate([
-              'doctor-add-prescription',
-              this.appointmentID,
-            ]);
+            this.dataService.setDoctorAddPrescription(
+              this.appointmentID.toString()
+            );
+            this.router.navigate(['doctor-add-prescription']);
           },
           (err) => {
+            Swal.close();
             Swal.fire({
               title: 'Add Symptom unsuccessful',
               text: err.message,

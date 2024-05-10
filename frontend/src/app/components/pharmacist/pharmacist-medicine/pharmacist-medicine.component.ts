@@ -160,7 +160,23 @@ export class PharmacistMedicineComponent implements OnInit {
   }
 
   onView(medicine_id: number) {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     this.medicineService.getMedicineByID(medicine_id).subscribe((res) => {
+      Swal.close();
       this.viewMedicine = res;
       this.imgMedicine = this.viewMedicine.medicine_image;
       this.medicine_id = this.viewMedicine.medicine_id;
@@ -177,6 +193,21 @@ export class PharmacistMedicineComponent implements OnInit {
   }
 
   onSave() {
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
     enum Medicine_status {
       Available,
       Unavailable,
@@ -198,11 +229,13 @@ export class PharmacistMedicineComponent implements OnInit {
     };
     this.medicineService.updateMedicine(medicine).subscribe(
       (response: any) => {
+        Swal.close();
         if (this.fileToMedicine !== undefined) {
           this.medicineService
             .uploadMedicineImage(this.fileToMedicine, this.medicine_id)
             .subscribe(
               (res) => {
+                Swal.close();
                 this.fileToMedicine === undefined;
                 this.medicineService.getAllMedicines().subscribe((res) => {
                   this.lstData = res;
@@ -223,11 +256,13 @@ export class PharmacistMedicineComponent implements OnInit {
                 Swal.fire('Update Medicine successfully', '', 'success');
               },
               (err) => {
+                Swal.close();
                 Swal.fire('Update Medicine Failed', err.message, 'error');
               }
             );
         } else {
           this.medicineService.getAllMedicines().subscribe((res) => {
+            Swal.close();
             this.lstData = res;
             this.convertToString();
             if (this.searchData == '') {
@@ -247,6 +282,7 @@ export class PharmacistMedicineComponent implements OnInit {
         }
       },
       (error: any) => {
+        Swal.close();
         Swal.fire('Update Medicine Failed', error.message, 'error');
       }
     );

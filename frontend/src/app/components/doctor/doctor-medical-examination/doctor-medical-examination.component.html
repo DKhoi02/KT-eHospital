@@ -112,7 +112,8 @@
                         ? '#F89797'
                         : '#fff'
                   }"
-                  [routerLink]="['/doctor-add-medical-examination', user.id]"
+                  (click)="doctorAddMedicalExamination(user.id)"
+                  
                 >
                   <td style="color: #009bab">{{ user.no }}</td>
                   <td>

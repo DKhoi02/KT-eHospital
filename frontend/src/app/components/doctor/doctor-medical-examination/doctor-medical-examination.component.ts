@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { RoleService } from 'src/app/services/role.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
@@ -41,7 +42,8 @@ export class DoctorMedicalExaminationComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleService,
     private sanitizer: DomSanitizer,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -131,7 +133,10 @@ export class DoctorMedicalExaminationComponent implements OnInit {
     this.auth.signOut();
   }
 
-  onView(user_email: string) {}
+  doctorAddMedicalExamination(id: number){
+    this.dataService.setDoctorAddMedicalExamination(id.toString());
+    this.router.navigate(['doctor-add-medical-examination'])
+  }
 
   handleFileInput(event: any) {
     const fileToUpload: File = event.target.files[0];

@@ -18,10 +18,23 @@
               SignUpForm.controls['user_fullName'].dirty &&
               SignUpForm.hasError('required', 'user_fullName')
             "
+            else
+            lengthname
             class="text-danger"
             >Full Name is required</small
           >
-          
+          <ng-template #lengthname>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_fullName'].dirty &&
+                SignUpForm.hasError('maxlength', 'user_fullName')
+              "
+              class="text-danger"
+            >
+              Full name can't exceed 255 characters</small
+            >
+          </ng-template>
+
           <div class="input-field">
             <input
               type="email"
@@ -123,10 +136,21 @@
             *ngIf="
               SignUpForm.controls['user_address'].dirty &&
               SignUpForm.hasError('required', 'user_address')
-            "
+            " else lengthaddress
             class="text-danger"
             >Address is required</small
           >
+          <ng-template #lengthaddress>
+            <small
+              *ngIf="
+                SignUpForm.controls['user_address'].dirty &&
+                SignUpForm.hasError('maxlength', 'user_address')
+              "
+              class="text-danger"
+            >
+              Address can't exceed 255 characters</small
+            >
+          </ng-template>
           <div class="gender-box">
             <label>Gender</label>
             <div class="gender-option">
@@ -176,12 +200,12 @@
                 SignUpForm.hasError('pattern', 'user_password')
               "
               class="text-danger"
-              >Password must contain at least 8 or more letters
-              <br> Password must contain at least one number
-              <br>Password must contain at least one uppercase letter
-              <br>Password must contain at least one lowercase letter
-              <br>Password must contain at least one special letter  </small
-            >
+              >Password must contain at least 8 or more letters <br />
+              Password must contain at least one number <br />Password must
+              contain at least one uppercase letter <br />Password must contain
+              at least one lowercase letter <br />Password must contain at least
+              one special letter
+            </small>
           </ng-template>
           <div class="input-field">
             <input

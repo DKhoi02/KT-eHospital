@@ -99,10 +99,7 @@
               <tbody *ngFor="let data of lstUser| paginate
                       : { itemsPerPage: pageSize, currentPage: currentPage }">
                 <tr
-                  [routerLink]="[
-                    '/patient-view-appointment',
-                    data.appointment_id
-                  ]"
+                (click) = "patientViewAppointment(data.appointment_id)"
                 >
                   <td style="color: #009bab">{{ data.appointment_id }}</td>
                   <td>
