@@ -30,7 +30,6 @@ export class ViewBlogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.blogID = +this.dataService.getViewBlog();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
@@ -50,12 +49,15 @@ export class ViewBlogComponent implements OnInit {
   }
 
   onView(id: number) {
+    this.dataService.setViewBlog(id.toString());
     if (this.currentUser != undefined) {
       this.blogService.addCountBlog(this.currentUser, id).subscribe((res) => {
-        this.router.navigate(['/view-blog', id]);
+        window.location.reload();
+        this.router.navigate(['/view-blog']);
       });
     } else {
-      this.router.navigate(['/view-blog', id]);
+      window.location.reload();
+      this.router.navigate(['/view-blog']);
     }
   }
 }

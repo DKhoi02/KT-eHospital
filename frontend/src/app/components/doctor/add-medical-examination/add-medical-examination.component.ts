@@ -58,6 +58,8 @@ export class AddMedicalExaminationComponent implements OnInit {
   birthday: string = '';
   gender: string = '';
   address: string = '';
+  public fullName: string = '';
+
   pageSize = 5;
   currentPage = 1;
   constructor(
@@ -100,6 +102,7 @@ export class AddMedicalExaminationComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

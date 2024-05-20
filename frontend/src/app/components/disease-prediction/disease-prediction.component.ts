@@ -8,6 +8,10 @@ import {
 import ValidateForm from 'src/app/helpers/validateForms';
 import { MachineLearningService } from 'src/app/services/machine-learning.service';
 import Swal from 'sweetalert2';
+import { Chart, registerables } from 'node_modules/chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-disease-prediction',
@@ -148,7 +152,7 @@ export class DiseasePredictionComponent implements OnInit {
     'red_sore_around_nose',
     'yellow_crust_ooze',
   ];
-
+  radarChart: any;
   lstSymptoms = this.lstSymptomData;
   lstSymptomed: string[] = [];
   public symptomForm!: FormGroup;
@@ -163,6 +167,10 @@ export class DiseasePredictionComponent implements OnInit {
   diseaseTop3Percent: any;
   diseaseTop4Percent: any;
   diseaseTop5Percent: any;
+  public isShowChart: string = 'block';
+  public isShowTable: string = 'none';
+  lstResult: string[] = [];
+  lstDiseaseName: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -201,6 +209,56 @@ export class DiseasePredictionComponent implements OnInit {
     this.lstSymptoms.push(symptom);
   }
 
+  onChart() {
+    this.isShowChart = 'none';
+    this.isShowTable = 'block';
+  }
+
+  onTable() {
+    this.isShowTable = 'none';
+    this.isShowChart = 'block';
+  }
+
+  RadarChart() {
+    const data = {
+      labels: this.lstDiseaseName,
+      datasets: [
+        {
+          label: 'Incidence rates is(%) ',
+          data: this.lstResult,
+
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            '#71b657',
+            '#e3632d',
+            '#6c757d',
+          ],
+          hoverOffset: 4,
+        },
+      ],
+    };
+
+    this.radarChart = new Chart('radarChart', {
+      type: 'pie',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+        plugins: {
+          datalabels: {
+            color: 'white',
+          },
+        },
+      },
+      plugins: [ChartDataLabels],
+    });
+  }
+
   onFinish() {
     if (this.lstSymptomed.length > 0) {
       Swal.fire({
@@ -222,33 +280,75 @@ export class DiseasePredictionComponent implements OnInit {
         .diseasePrediction(this.lstSymptomed)
         .subscribe((res) => {
           Swal.close();
+          this.lstDiseaseName = [];
+          this.lstResult = [];
+          if (this.radarChart) {
+            this.radarChart.destroy();
+          }
+
           this.lstDisease = res;
           this.diseaseTop1Name = Object.keys(this.lstDisease[0])[0];
+          this.lstDiseaseName.push(this.diseaseTop1Name);
           this.diseaseTop1Percent = Object.values(this.lstDisease[0])[0];
+
           this.diseaseTop2Name = Object.keys(this.lstDisease[1])[0];
+          this.lstDiseaseName.push(this.diseaseTop2Name);
           this.diseaseTop2Percent = Object.values(this.lstDisease[1])[0];
+
           this.diseaseTop3Name = Object.keys(this.lstDisease[2])[0];
+          this.lstDiseaseName.push(this.diseaseTop3Name);
           this.diseaseTop3Percent = Object.values(this.lstDisease[2])[0];
+
           this.diseaseTop4Name = Object.keys(this.lstDisease[3])[0];
+          this.lstDiseaseName.push(this.diseaseTop4Name);
           this.diseaseTop4Percent = Object.values(this.lstDisease[3])[0];
+
           this.diseaseTop5Name = Object.keys(this.lstDisease[4])[0];
+          this.lstDiseaseName.push(this.diseaseTop5Name);
           this.diseaseTop5Percent = Object.values(this.lstDisease[4])[0];
+
           const total =
             this.diseaseTop1Percent +
             this.diseaseTop2Percent +
             this.diseaseTop3Percent +
             this.diseaseTop4Percent +
             this.diseaseTop5Percent;
-          this.diseaseTop1Percent =
-            ((this.diseaseTop1Percent * 100) / total).toFixed(2) + ' %';
-          this.diseaseTop2Percent =
-            ((this.diseaseTop2Percent * 100) / total).toFixed(2) + ' %';
-          this.diseaseTop3Percent =
-            ((this.diseaseTop3Percent * 100) / total).toFixed(2) + ' %';
-          this.diseaseTop4Percent =
-            ((this.diseaseTop4Percent * 100) / total).toFixed(2) + ' %';
-          this.diseaseTop5Percent =
-            ((this.diseaseTop5Percent * 100) / total).toFixed(2) + ' %';
+
+          this.diseaseTop1Percent = (
+            (this.diseaseTop1Percent * 100) /
+            total
+          ).toFixed(2);
+          this.lstResult.push(this.diseaseTop1Percent);
+          this.diseaseTop1Percent = this.diseaseTop1Percent + '%';
+
+          this.diseaseTop2Percent = (
+            (this.diseaseTop2Percent * 100) /
+            total
+          ).toFixed(2);
+          this.lstResult.push(this.diseaseTop2Percent);
+          this.diseaseTop2Percent = this.diseaseTop2Percent + '%';
+
+          this.diseaseTop3Percent = (
+            (this.diseaseTop3Percent * 100) /
+            total
+          ).toFixed(2);
+          this.lstResult.push(this.diseaseTop3Percent);
+          this.diseaseTop3Percent = this.diseaseTop3Percent + '%';
+
+          this.diseaseTop4Percent = (
+            (this.diseaseTop4Percent * 100) /
+            total
+          ).toFixed(2);
+          this.lstResult.push(this.diseaseTop4Percent);
+          this.diseaseTop4Percent = this.diseaseTop4Percent + '%';
+
+          this.diseaseTop5Percent = (
+            (this.diseaseTop5Percent * 100) /
+            total
+          ).toFixed(2);
+          this.lstResult.push(this.diseaseTop5Percent);
+          this.diseaseTop5Percent = this.diseaseTop5Percent + '%';
+          this.RadarChart();
         });
     } else {
       Swal.fire({
@@ -262,6 +362,11 @@ export class DiseasePredictionComponent implements OnInit {
   onReset() {
     this.lstSymptoms = this.lstSymptomData;
     this.lstSymptomed = [];
+    this.lstResult = [];
+    this.lstDiseaseName = [];
+    if (this.radarChart) {
+      this.radarChart.destroy();
+    }
     this.diseaseTop1Name = '';
     this.diseaseTop1Percent = '';
     this.diseaseTop2Name = '';

@@ -32,6 +32,7 @@ export class AddNewAccountComponent implements OnInit {
   public searchData: string = '';
   public imgUser: string = '';
   lstRoles: any = [];
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -88,6 +89,7 @@ export class AddNewAccountComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

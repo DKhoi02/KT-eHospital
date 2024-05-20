@@ -7,7 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 body{
-  height: 90.7vh;
+  height: 89vh;
   background: #009bab;
   background-size: 400%;
 }
@@ -104,4 +104,10 @@ body{
 .content .btns a:hover{
   background: #009bab;
   color: #fff;
+}
+
+@media (max-width: 290px){
+  #error-page{
+    margin-top: 40px;
+  }
 }

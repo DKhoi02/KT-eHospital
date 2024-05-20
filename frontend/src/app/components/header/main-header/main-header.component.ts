@@ -11,6 +11,7 @@ import ValidateForm from 'src/app/helpers/validateForms';
 import { UserModel } from 'src/app/models/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { DataService } from 'src/app/services/data.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
@@ -19,6 +20,7 @@ import Swal from 'sweetalert2';
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
   styleUrls: ['./main-header.component.css'],
+  
 })
 export class MainHeaderComponent implements OnInit {
   public currentUser!: string;
@@ -32,13 +34,15 @@ export class MainHeaderComponent implements OnInit {
   public quantityBooked!: number;
   public chooseDate: string = '';
 
+
   constructor(
     private auth: AuthService,
     private userStore: UserStoreService,
     private router: Router,
     private user: UserService,
     private fb: FormBuilder,
-    private appointment: AppointmentService
+    private appointment: AppointmentService,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -142,7 +146,7 @@ export class MainHeaderComponent implements OnInit {
     }
   }
 
-// https://sweetalert2.github.io/images/nyan-cat.gif
+  // https://sweetalert2.github.io/images/nyan-cat.gif
 
   onBook() {
     if (
@@ -186,7 +190,8 @@ export class MainHeaderComponent implements OnInit {
               reverseButtons: true,
             }).then((result) => {
               if (result.isConfirmed) {
-                this.router.navigate(['patient-view-appointment', res]);
+                this.dataService.setPatientViewAppointment(res.toString());
+                this.router.navigate(['patient-view-appointment']);
               }
             });
           },

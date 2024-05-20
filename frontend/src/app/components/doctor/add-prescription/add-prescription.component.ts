@@ -53,6 +53,8 @@ export class AddPrescriptionComponent implements OnInit {
 
   lstMedicine: any = [];
 
+  public fullName: string = '';
+
   constructor(
     private auth: AuthService,
     private userStore: UserStoreService,
@@ -99,6 +101,7 @@ export class AddPrescriptionComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

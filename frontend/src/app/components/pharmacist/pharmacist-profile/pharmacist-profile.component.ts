@@ -26,6 +26,7 @@ export class PharmacistProfileComponent implements OnInit {
   public userModel!: UserModel;
   public profileForm!: FormGroup;
   public roleName: string = '';
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -69,6 +70,7 @@ export class PharmacistProfileComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
           this.profileForm.patchValue({
             user_fullName: this.userModel.user_fullName,
             user_email: this.userModel.user_email,

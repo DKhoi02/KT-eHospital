@@ -47,6 +47,7 @@ export class PharmacistAddConfirmAppointmentComponent implements OnInit {
   lstPrescription: any = [];
 
   public searchData: string = '';
+  public fullName: string = '';
 
   fullname: string = '';
   email: string = '';
@@ -93,6 +94,7 @@ export class PharmacistAddConfirmAppointmentComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

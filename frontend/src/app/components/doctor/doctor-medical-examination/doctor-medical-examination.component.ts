@@ -28,6 +28,7 @@ export class DoctorMedicalExaminationComponent implements OnInit {
   public viewUser: any = [];
   public searchData: string = '';
   public imgUser: string = '';
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -62,6 +63,7 @@ export class DoctorMedicalExaminationComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -133,9 +135,9 @@ export class DoctorMedicalExaminationComponent implements OnInit {
     this.auth.signOut();
   }
 
-  doctorAddMedicalExamination(id: number){
+  doctorAddMedicalExamination(id: number) {
     this.dataService.setDoctorAddMedicalExamination(id.toString());
-    this.router.navigate(['doctor-add-medical-examination'])
+    this.router.navigate(['doctor-add-medical-examination']);
   }
 
   handleFileInput(event: any) {

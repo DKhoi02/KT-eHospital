@@ -1,4 +1,4 @@
-body {
+/* body {
   margin-top: 50px;
   display: flex;
   justify-content: center;
@@ -154,4 +154,114 @@ table th {
 }
 
 
+ */
+
+/* .deleteSymptom{
+  border-bottom: 2px solid rgb(97, 93, 93);
+}
+
+.deleteSymptom > ul {
+  list-style: none;
+  overflow-y: auto;
+  height: 250px;
+
+}
+
+.deleteSymptom > ul > li {
+  background-color: #009bab;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  margin: 5px;
+  display: inline-block;
+}
+
+.deleteSymptom > ul > li > button {
+  border: none;
+  background-color: white;
+  color: #009bab;
+  border-radius: 5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  transition: ease 0.2s;
+}
+
+.deleteSymptom > ul > li > button:hover {
+  cursor: pointer;
+  background-color: #f4f4f4;
+  transition: ease 0.2s;
+}
+
+.col-12 {
+  width: 100%;
+} */
+
+
+.deleteSymptom > ul {
+  list-style: none;
+  overflow-y: auto;
+  background-color: #ffffff; /* Đổi background color của ul */
+  border-radius: 0.5rem; /* Làm cong các góc của ul */
+  display: flex; /* Sử dụng flexbox */
+  flex-wrap: wrap; /* Cho phép các mục chuyển hàng khi không đủ không gian */
+  padding: 5px; /* Thêm padding cho các mục trong danh sách */
+}
+
+.deleteSymptom > ul > li {
+  color: white;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  margin: 5px;
+  display: inline-block;
+  background-color: #009bab; /* Đổi background color của các mục */
+  color: white; /* Đổi màu chữ của các mục */
+}
+
+.deleteSymptom > ul > li > button {
+  border: none;
+  background-color: white;
+  color: #009bab;
+  border-radius: 5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  transition: ease 0.2s;
+}
+
+.deleteSymptom > ul > li > button:hover {
+  cursor: pointer;
+  background-color: #f4f4f4;
+  transition: ease 0.2s;
+}
+
+
+table{
+  margin-top: 30px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table th,
+table td {
+  border: 1px solid #d7d3d3;
+  padding: 8px;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+
+.warningUser{
+  text-align: justify
+}
+
+@media (max-width: 280px){
+  .div-chart{
+    width: 250px !important;
+  }
+}
 

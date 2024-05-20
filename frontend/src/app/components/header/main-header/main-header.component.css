@@ -23,6 +23,17 @@
 .top-navbar a:hover{
   color: yellow;
 }
+
+.border-header {
+  display: block; /* hoặc giá trị display mặc định của bạn */
+}
+
+@media screen and (max-width:991px){
+  .border-header{
+    display: none !important;
+  }
+}
+
 @media screen and (max-width:400px){
   .top-navbar a{
       font-size: 13px;
@@ -187,3 +198,4 @@ i.uil.uil-bars{
 .input-box input:valid{
   border: 2px solid #009bab;
 }
+

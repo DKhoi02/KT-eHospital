@@ -36,6 +36,7 @@ export class AddNewMedicineComponent implements OnInit {
   lstRoles: any = [];
   public imgMedicine: string = '';
   fileToMedicine: any;
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -76,6 +77,7 @@ export class AddNewMedicineComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

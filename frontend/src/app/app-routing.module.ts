@@ -335,9 +335,9 @@ const routes: Routes = [
   { path: '**', component: NotFoundComponent },
 ];
 
-bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes, withHashLocation())],
-});
+// bootstrapApplication(AppComponent, {
+//   providers: [provideRouter(routes)],
+// });
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

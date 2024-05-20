@@ -11,8 +11,11 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private baseUrl: string = 'https://localhost:7072/user/';
   private userPayload: any;
+  private broadcastChannel!: BroadcastChannel;
+
   constructor(private http: HttpClient, private router: Router) {
     this.userPayload = this.decodedToken();
+    this.broadcastChannel = new BroadcastChannel('auth_channel');
   }
 
   signUp(userObj: any) {
@@ -22,14 +25,15 @@ export class AuthService {
   signIn(email: string, password: string): Observable<any> {
     const formData = new FormData();
     formData.append('email', email);
-    formData.append('password', password)
+    formData.append('password', password);
     return this.http.post<any>(this.baseUrl + 'signin', formData);
   }
 
   signOut() {
     localStorage.clear();
     this.router.navigate(['/']).then(() => {
-      window.location.reload();
+      this.broadcastChannel.postMessage('reloadAllPage');
+      // window.location.reload();
     });
   }
 

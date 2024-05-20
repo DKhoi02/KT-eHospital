@@ -42,11 +42,6 @@ namespace backend.Controllers
                 return BadRequest(new { Message = "Total Medicine Quantity can't least than Each time, take pill" });
             }
 
-            if (number_perday < pill)
-            {
-                return BadRequest(new { Message = "Number of take medicine per day can't least than Each time, take pill" });
-            }
-
             var appointment = _context.Appointments.Where(a => a.appointment_id == appointment_id).FirstOrDefault();
             if (appointment == null) { return BadRequest(new { Message = "Appointment is not found" }); }
 

@@ -27,6 +27,7 @@ export class PatientAppointmentComponent implements OnInit {
   public viewUser: any = [];
   public searchData: string = '';
   public imgUser: string = '';
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -61,6 +62,7 @@ export class PatientAppointmentComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -128,9 +130,9 @@ export class PatientAppointmentComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(highlightedText);
   }
 
-  patientViewAppointment(id: number){
-    this.dataService.setPatientViewAppointment(id.toString())
-    this.router.navigate(['patient-view-appointment'])
+  patientViewAppointment(id: number) {
+    this.dataService.setPatientViewAppointment(id.toString());
+    this.router.navigate(['patient-view-appointment']);
   }
 
   onSignOut() {

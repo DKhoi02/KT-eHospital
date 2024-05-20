@@ -38,6 +38,7 @@ export class AdminHomeComponent implements OnInit {
   public viewUser: any = [];
   public searchData: string = '';
   public imgUser: string = '';
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -82,6 +83,7 @@ export class AdminHomeComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

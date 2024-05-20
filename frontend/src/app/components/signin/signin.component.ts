@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class SigninComponent implements OnInit {
   SignInForm!: FormGroup;
+  private broadcastChannel!: BroadcastChannel;
   // @ViewChild('signInBtn') signInBtn!: ElementRef;
 
   constructor(
@@ -26,7 +27,7 @@ export class SigninComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private userStore: UserStoreService // private renderer: Renderer2
-  ) {}
+  ) {this.broadcastChannel = new BroadcastChannel('auth_channel');}
 
   ngOnInit(): void {
     this.SignInForm = this.fb.group({
@@ -93,6 +94,7 @@ export class SigninComponent implements OnInit {
             } else {
               this.router.navigate(['/']);
             }
+            this.broadcastChannel.postMessage('reloadAllPage');
           },
           (error) => {
             Swal.close();

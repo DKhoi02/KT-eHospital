@@ -59,6 +59,7 @@ export class DoctorHistoryPatientComponent implements OnInit {
   doctor_name = '';
   pharmacist_email = '';
   pharmacist_name = '';
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -81,7 +82,7 @@ export class DoctorHistoryPatientComponent implements OnInit {
     //   this.appointmentID = +params['id'];
     // });
 
-    this.appointmentID = +this.dataService.getDoctorHistoryPatient()
+    this.appointmentID = +this.dataService.getDoctorHistoryPatient();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -98,6 +99,7 @@ export class DoctorHistoryPatientComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -129,10 +131,10 @@ export class DoctorHistoryPatientComponent implements OnInit {
           (this.address = res.user_address);
         this.gender = res.user_gender;
         this.symptom = res.symptom;
-        this.appointment_date = res.appointment_date
-        this.doctor_email = res.doctor_email
-        this.doctor_name = res.doctor_name
-        this.pharmacist_email = res.pharmacist_email
+        this.appointment_date = res.appointment_date;
+        this.doctor_email = res.doctor_email;
+        this.doctor_name = res.doctor_name;
+        this.pharmacist_email = res.pharmacist_email;
         this.pharmacist_name = res.pharmacist_name;
       });
   }

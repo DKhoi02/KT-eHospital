@@ -20,6 +20,7 @@ export class ManagerRevenuePredictionComponent implements OnInit {
 
   public time: number = 0;
   public predictImg!: string;
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -45,6 +46,7 @@ export class ManagerRevenuePredictionComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -75,7 +77,6 @@ export class ManagerRevenuePredictionComponent implements OnInit {
         }
       }, 200);
       this.statisticService.getRevenuePrediction().subscribe((res: any) => {
-
         let revenue = res.revenue.join(',');
         this.machineLearningService
           .revenuePrediction(res.startDate, res.endDate, this.time, revenue)

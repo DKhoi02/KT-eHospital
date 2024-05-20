@@ -46,6 +46,8 @@ export class DoctorViewScheduleComponent implements OnInit {
 
   checkDate: boolean = true;
 
+  public fullName: string = '';
+
   constructor(
     private auth: AuthService,
     private userStore: UserStoreService,
@@ -61,12 +63,12 @@ export class DoctorViewScheduleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-      this.chooseDate = this.dataService.getDoctorViewSchedule();
-      this.checkDate =
-        new Date(this.chooseDate).setHours(0, 0, 0, 0) >=
-        new Date().setHours(0, 0, 0, 0)
-          ? true
-          : false;
+    this.chooseDate = this.dataService.getDoctorViewSchedule();
+    this.checkDate =
+      new Date(this.chooseDate).setHours(0, 0, 0, 0) >=
+      new Date().setHours(0, 0, 0, 0)
+        ? true
+        : false;
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -83,6 +85,7 @@ export class DoctorViewScheduleComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

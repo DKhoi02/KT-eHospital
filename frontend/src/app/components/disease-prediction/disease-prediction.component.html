@@ -1,4 +1,4 @@
-<h2>Disease Prediction</h2>
+<!-- <h2>Disease Prediction</h2>
 <body>
   <div class="disease">
     <div class="searchSymptom">
@@ -53,7 +53,7 @@
       <table style="width: 85%">
         <thead>
           <tr>
-            <th>DESEASE NAME</th>
+            <th>DISEASE NAME</th>
             <th>POSSIBILITY</th>
           </tr>
         </thead>
@@ -90,6 +90,158 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</body> -->
+
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center">Disease Prediction</h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="disease border rounded p-3">
+          <div class="searchSymptom">
+            <form [formGroup]="symptomForm">
+              <label for="inputSymptom" class="form-label"
+                >Choose Symptom</label
+              >
+              <div class="chooseSymptom d-flex align-items-center">
+                <input
+                  class="form-control me-2"
+                  id="inputSymptom"
+                  list="symstom"
+                  type="text"
+                  formControlName="symptom"
+                />
+                <datalist id="symstom">
+                  <option
+                    *ngFor="let symptom of lstSymptoms"
+                    [value]="symptom"
+                  ></option>
+                </datalist>
+                <button
+                  (click)="onAddSymptom()"
+                  class="btn btn-primary"
+                  style="background-color: #009bab; border: none"
+                >
+                  Add
+                </button>
+              </div>
+              <small
+                *ngIf="
+                  symptomForm.controls['symptom'].dirty &&
+                  symptomForm.hasError('isWrongSymptom', 'symptom')
+                "
+                class="text-danger"
+                >Please choose correct Symptom</small
+              >
+            </form>
+          </div>
+          <div class="col-12 deleteSymptom">
+            <ul class="list-unstyled">
+              <li
+                *ngFor="let s of lstSymptomed; let i = index"
+                class="d-flex align-items-center"
+              >
+                {{ s }}
+                <button
+                  (click)="onDelete(i, s)"
+                  class="btn btn-danger btn-sm ms-2"
+                >
+                  X
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="actionSymptom d-flex justify-content-between">
+            <button (click)="onReset()" class="btn btn-danger">Reset</button>
+            <button
+              (click)="onFinish()"
+              class="btn btn-primary"
+              style="background-color: #009bab; border: none"
+            >
+              Finish
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="symptom border rounded p-3">
+          <div class="searchSymptom">
+            <p class="warningUser">
+              Please note that this is just a prediction for reference purposes,
+              and the results may contain errors. For accurate information,
+              please visit a hospital directly and always consult a doctor if
+              you have any symptoms of a disease or call your local hospital.
+            </p>
+          </div>
+          <div class="col-12 tableResult" style="display: {{ isShowChart }};">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">DISEASE NAME</th>
+                  <th scope="col">POSSIBILITY</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color: rgb(241, 42, 42)">{{ diseaseTop1Name }}</td>
+                  <td style="color: rgb(241, 42, 42)">
+                    {{ diseaseTop1Percent }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{ diseaseTop2Name }}</td>
+                  <td>{{ diseaseTop2Percent }}</td>
+                </tr>
+                <tr>
+                  <td>{{ diseaseTop3Name }}</td>
+                  <td>{{ diseaseTop3Percent }}</td>
+                </tr>
+                <tr>
+                  <td>{{ diseaseTop4Name }}</td>
+                  <td>{{ diseaseTop4Percent }}</td>
+                </tr>
+                <tr>
+                  <td>{{ diseaseTop5Name }}</td>
+                  <td>{{ diseaseTop5Percent }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display: {{ isShowTable }}; ">
+            <div
+              class="div-form mx-auto"
+              style="display: flex; justify-content: center"
+            >
+              <div class="div-chart" style="width: 450px;">
+                <h2 class="title-chart" style="text-align: center;">Revenue Chart</h2>
+                <canvas id="radarChart" ></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="btn d-flex justify-content-center" style="border: none">
+            <button
+              (click)="onChart()"
+              class="btn"
+              style="color: #009bab; border: 2px solid #009bab; display: {{
+                isShowChart
+              }};"
+            >
+              Chart
+            </button>
+            <button
+              (click)="onTable()"
+              class="btn"
+              style="color: #fff; background-color: #009bab; border: 2px solid #009bab; display: {{
+                isShowTable
+              }};"
+            >
+              Table
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

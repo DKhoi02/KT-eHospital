@@ -36,6 +36,7 @@ export class PharmacistMedicineComponent implements OnInit {
   medicine_id: number = 0;
   medicine_date: any;
   medicine_OldImg: string = '';
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -80,6 +81,7 @@ export class PharmacistMedicineComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

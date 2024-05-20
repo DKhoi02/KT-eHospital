@@ -33,6 +33,7 @@ export class ManagerViewBlogComponent implements OnInit {
   title: string = '';
   img: string = '';
   content: string = '';
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -45,8 +46,7 @@ export class ManagerViewBlogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this.blogID = +this.dataService.getManagerViewBlog()
+    this.blogID = +this.dataService.getManagerViewBlog();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -63,6 +63,7 @@ export class ManagerViewBlogComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

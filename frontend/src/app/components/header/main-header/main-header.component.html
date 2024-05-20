@@ -62,8 +62,8 @@
           <li *ngIf="!role" class="nav-item">
             <a class="nav-link" routerLink="/signin">Sign In</a>
           </li>
-          <div *ngIf="!role" style="border-left: 2px solid white"></div>
-          <li *ngIf="!role" class="nav-item m-0">
+          <div *ngIf="!role" class="border-header" style="border-left: 2px solid white"></div>
+          <li *ngIf="!role" class="nav-item">
             <a class="nav-link" routerLink="/signup">Sign Up</a>
           </li>
 
@@ -78,14 +78,15 @@
             />
           </li>
           <li *ngIf="role" class="nav-item d-flex">
-            <div style="border-left: 2px solid white">
-              <input
+            <div class="border-header" style="border-left: 2px solid white">
+
+            </div>
+             <input
                 type="submit"
                 (click)="onSignOut()"
                 class="nav-link border-2"
                 value="Sign Out"
               />
-            </div>
           </li>
         </ul>
       </div>

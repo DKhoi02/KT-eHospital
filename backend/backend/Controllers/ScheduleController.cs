@@ -72,6 +72,18 @@ namespace backend.Controllers
             _context.Schedules.Add(schedule);
             await _context.SaveChangesAsync();
 
+            var appointment = _context.Appointments.Where(a => a.appointment_time.Date == dateSchedule.Date && a.appointment_status == Appointment_status.Scheduled).ToList();
+
+            if(appointment != null)
+            {
+                foreach(var item in appointment)
+                {
+                    item.appointment_doctor_id = checkUser.user_id;
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+
             return Ok(new { Message = "Add Schedule successfull" });
         }
 
@@ -83,6 +95,17 @@ namespace backend.Controllers
             var schedule = await _context.Schedules.Where(s => s.schedule_id == id).FirstOrDefaultAsync();
 
             if (schedule == null) { return BadRequest(new { Message = "Schedule is not found" }); }
+
+            var appointment = _context.Appointments.Where(a => a.appointment_time.Date == schedule.schedule_date && a.appointment_status == Appointment_status.Scheduled).ToList();
+
+            if (appointment != null)
+            {
+                foreach (var item in appointment)
+                {
+                    item.appointment_doctor_id = null;
+                    await _context.SaveChangesAsync();
+                }
+            }
 
             _context.Schedules.Remove(schedule);
             await _context.SaveChangesAsync();

@@ -23,6 +23,7 @@ export class ManagerStatisticComponent implements OnInit {
 
   //Chart
   radarChart: any;
+  radarChart1: any;
   public total_revenue: string = '';
   public total_user: string = '';
   public total_appointment: string = '';
@@ -35,6 +36,7 @@ export class ManagerStatisticComponent implements OnInit {
   lstStatus: string[] = [];
   lstAppointment: string[] = [];
   lstData: any = [];
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -59,6 +61,7 @@ export class ManagerStatisticComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -122,25 +125,25 @@ export class ManagerStatisticComponent implements OnInit {
       ],
     };
 
-  this.radarChart = new Chart('radarChart', {
-    type: 'pie',
-    data: dataTotal,
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
+    this.radarChart = new Chart('radarChart', {
+      type: 'pie',
+      data: dataTotal,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+        plugins: {
+          datalabels: {
+            color: 'white',
+          },
         },
       },
-      plugins: {
-        datalabels: {
-          color: 'white',
-        },
-      },
-    },
-    plugins: [ChartDataLabels],
-  });
+      plugins: [ChartDataLabels],
+    });
 
-    this.radarChart = new Chart('radarChart1', {
+    this.radarChart1 = new Chart('radarChart1', {
       type: 'pie',
       data: data,
 
@@ -182,6 +185,8 @@ export class ManagerStatisticComponent implements OnInit {
         .subscribe(
           (res: any) => {
             Swal.close();
+            this.lstStatus = [];
+            this.lstAppointment = [];
             this.total = res.total;
             this.lstData = res.data;
             this.lstData.forEach(
@@ -190,6 +195,10 @@ export class ManagerStatisticComponent implements OnInit {
                 this.lstAppointment.push(item.quantity_appointment);
               }
             );
+            if (this.radarChart) {
+              this.radarChart.destroy();
+              this.radarChart1.destroy();
+            }
             this.RadarChart();
           },
           (err) => {

@@ -62,6 +62,7 @@ export class PatientViewAppointmentComponent implements OnInit {
   status: string = '';
   no: number = 0;
   totalAppointment: number = 0;
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -80,7 +81,7 @@ export class PatientViewAppointmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.appointmentID = +this.dataService.getPatientViewAppointment()
+    this.appointmentID = +this.dataService.getPatientViewAppointment();
 
     this.userStore.getEmailFromStore().subscribe((val) => {
       const emailFromToken = this.auth.getEmailFromToken();
@@ -97,6 +98,7 @@ export class PatientViewAppointmentComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -119,7 +121,7 @@ export class PatientViewAppointmentComponent implements OnInit {
     this.appointmentService
       .getUserByAppointment(this.appointmentID)
       .subscribe((res: any) => {
-        console.log(res)
+        console.log(res);
         this.fullname = res.user_fullName;
         this.email = res.user_email;
         this.phoneNumber = res.user_phoneNumber;
@@ -138,7 +140,7 @@ export class PatientViewAppointmentComponent implements OnInit {
         this.pharmacist_name = res.pharmacist_name;
         this.room_name = res.room_name;
         this.status = res.status;
-        this.no = res.no
+        this.no = res.no;
         this.totalAppointment = res.total_appointment;
       });
   }
@@ -176,7 +178,6 @@ export class PatientViewAppointmentComponent implements OnInit {
       this.highlightKeyword(this.searchData);
     }
   }
-
 
   highlightKeyword(text: string): SafeHtml {
     if (!this.searchData.trim()) {

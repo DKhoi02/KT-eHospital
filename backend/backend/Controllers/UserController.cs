@@ -97,15 +97,6 @@ namespace backend.Controllers
             userObj.user_resetPasswordToken = "";
             userObj.user_resetPasswordExpiry = DateTime.Now;
 
-            var getProperties = typeof(User).GetProperties().Where(prop => prop.Name != "role" && prop.Name != "appointments");
-
-            bool anyUserIsNull = getProperties.Any(prop =>
-            {
-                return prop.GetValue(userObj) == null;
-            });
-
-            if (anyUserIsNull) return BadRequest("Please enter full information before Sign Up");
-
             userObj.user_fullName = userObj.user_fullName.Trim(); 
             userObj.user_address = userObj.user_address.Trim();
             userObj.user_gender = userObj.user_gender.Replace(" ", "");
@@ -337,13 +328,13 @@ namespace backend.Controllers
         [HttpGet("get-all-doctor")]
         public async Task<IActionResult> getAllDoctor()
         {
-            return Ok(await _context.Users.Where(u => u.role.role_name == "Doctor").ToListAsync());
+            return Ok(await _context.Users.Where(u => u.role.role_name == "Doctor" && u.user_status == User_status.Unlock).ToListAsync());
         }
 
         [HttpGet("get-doctor-home")]
         public async Task<IActionResult> getDoctorHome()
         {
-            var getDoctorID = await _context.Users.Where(u => u.role.role_name == "Doctor").ToListAsync();
+            var getDoctorID = await _context.Users.Where(u => u.role.role_name == "Doctor" && u.user_status == User_status.Unlock).ToListAsync();
 
             List<User> shuffledList = Shuffle(getDoctorID);
 
@@ -416,7 +407,7 @@ namespace backend.Controllers
         public async Task<IActionResult> contact(string name, string email, string subject, string message)
         {
             string from = _configuration["EmailSettings:From"];
-            var emailModel = new Email(email, subject, EmailBody.EmailContact(name, message));
+            var emailModel = new Email("khoidndgcc200058@fpt.edu.vn", subject, EmailBody.EmailContact(name, message, email));
             _emailService.SendEmail(emailModel);
 
             return Ok();

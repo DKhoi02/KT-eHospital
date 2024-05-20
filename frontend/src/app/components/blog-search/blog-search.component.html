@@ -23,17 +23,16 @@
       </div>
 
       <div class="row g-5">
-        <div class="col-xl-4 col-lg-6" *ngFor="let blog of lstBlogs">
+        <div class="col-xl-4 col-lg-6" style="cursor: pointer;" *ngFor="let blog of lstBlogs" (click)="onView(blog.blog_id)">
           <div
             class="bg-light rounded overflow-hidden"
           >
-            <img (click)="onView(blog.blog_id)" class="img-fluid w-100" src="{{ blog.blog_img }}" alt="" />
+            <img  class="img-fluid w-100" src="{{ blog.blog_img }}" alt="" />
             <div class="p-4">
-              <a
+              <p
                 class="h3 d-block mb-3"
                 style="text-decoration: none; color: #009bab"
-                href=""
-                >{{ blog.blog_title }}</a
+                >{{ blog.blog_title }}</p
               >
               <p class="m-0">{{ blog.blog_demo }}</p>
             </div>

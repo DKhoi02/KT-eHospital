@@ -27,6 +27,7 @@ export class ManagerAppointmentComponent implements OnInit {
   public viewUser: any = [];
   public searchData: string = '';
   public imgUser: string = '';
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -61,6 +62,7 @@ export class ManagerAppointmentComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({
@@ -72,9 +74,26 @@ export class ManagerAppointmentComponent implements OnInit {
       );
     }
 
+    Swal.fire({
+      html: `
+    <div id="background" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999; background-color: rgba(0, 0, 0, 0.5);"></div>
+    <img id="image" src="assets/img/loading.gif" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000; display: none;">
+  `,
+      width: 0,
+      showConfirmButton: false,
+    });
+
+    setTimeout(() => {
+      const image = document.getElementById('image');
+      if (image) {
+        image.style.display = 'block';
+      }
+    }, 500);
+
     this.appointmentService
       .getAllAppointmentByManager()
       .subscribe((res: any) => {
+        Swal.close();
         this.lstData = res.reverse();
         this.convertToString();
         this.lstUser = this.lstData;
@@ -240,9 +259,9 @@ export class ManagerAppointmentComponent implements OnInit {
     });
   }
 
-  managerChangeAppointment(id: number){
-    this.dataService.setManagerChangeAppointment(id.toString())
-    this.router.navigate(['manager-change-appointment'])
+  managerChangeAppointment(id: number) {
+    this.dataService.setManagerChangeAppointment(id.toString());
+    this.router.navigate(['manager-change-appointment']);
   }
 
   handleFileInput(event: any) {
@@ -262,7 +281,6 @@ export class ManagerAppointmentComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000,
         });
-        setTimeout(() => this.ngOnInit(), 0);
       },
       (err) => {
         Swal.fire({

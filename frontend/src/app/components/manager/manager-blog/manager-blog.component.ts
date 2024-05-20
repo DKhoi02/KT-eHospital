@@ -38,6 +38,7 @@ export class ManagerBlogComponent implements OnInit {
   medicine_date: any;
   medicine_OldImg: string = '';
   idBlog: number = 0;
+  public fullName: string = '';
 
   pageSize = 5;
   currentPage = 1;
@@ -80,6 +81,7 @@ export class ManagerBlogComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

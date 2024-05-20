@@ -27,6 +27,7 @@ export class DoctorProfileComponent implements OnInit {
   public profileForm!: FormGroup;
   public roleName: string = '';
   public file: any;
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -70,6 +71,7 @@ export class DoctorProfileComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
           this.profileForm.patchValue({
             user_fullName: this.userModel.user_fullName,
             user_email: this.userModel.user_email,

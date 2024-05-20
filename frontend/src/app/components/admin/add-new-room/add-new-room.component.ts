@@ -33,6 +33,7 @@ export class AddNewRoomComponent implements OnInit {
   public searchData: string = '';
   public imgUser: string = '';
   lstRoles: any = [];
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -66,6 +67,7 @@ export class AddNewRoomComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

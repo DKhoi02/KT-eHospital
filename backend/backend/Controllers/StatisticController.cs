@@ -77,6 +77,25 @@ namespace backend.Controllers
             DateTime startDate = appointment.Select(a => a.appointment_time.Date).First();
             DateTime endDate = appointment.Select(a => a.appointment_time.Date).Last();
 
+            DateTime currentdate = startDate;
+
+            for(int i = 0; currentdate.Date <= endDate.Date; i++)
+            {
+                if (appointment[i + 1].appointment_time.Date == appointment[i].appointment_time.Date) continue;
+
+                if ((appointment[i+1].appointment_time - appointment[i].appointment_time).Days > 1)
+                {
+                    Appointment app = new Appointment();
+                    app.appointment_id = 0;
+                    app.appointment_time = currentdate;
+                    app.appointment_status = Appointment_status.Completed;
+                    app.appointment_user_id = 0;
+                    app.appointment_regulation_id = 1;
+                    appointment.Insert(i+1, app);
+                }
+                currentdate = currentdate.AddDays(1);
+            }
+
             List<decimal> revenue = new List<decimal>();
 
             foreach (var item in appointment.GroupBy(a => a.appointment_time))
@@ -90,7 +109,8 @@ namespace backend.Controllers
                 revenue.Add(totalRevenue);
             }
 
-            return Ok(new {startDate = startDate.Date, endDate = endDate.Date, revenue = revenue });
+            return Ok(new { startDate = startDate.Date, endDate = endDate.Date, revenue = revenue });
+            //return Ok(appointment);
         }
     }
 }

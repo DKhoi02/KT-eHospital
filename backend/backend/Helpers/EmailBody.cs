@@ -148,7 +148,7 @@
 </html>";
         }
 
-        public static string EmailContact(string name, string message)
+        public static string EmailContact(string name, string message, string email)
         {
             return $@"<html>
     <head></head>
@@ -158,6 +158,7 @@
                 <div>
                     <h1 style=""color:black"">Notification</h1>
                     <hr>
+                    <p style=""color:black"">You have a contact from email: {email}</p>
                     <p style=""color:black"">My name is {name}, I am sending this email with the following content</p>
                     <p style=""color:black"">{message}</p>
                     <p style=""color:black; text-align: right"">Best Regards,<br><br>

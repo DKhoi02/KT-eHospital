@@ -279,22 +279,37 @@ namespace backend.Controllers
         [HttpGet("get-all-appointment-by-manager")]
         public async Task<IActionResult> getAllAppointmentManager()
         {
-            var data = _context.Appointments.Select(a => new
+            try
             {
-                appointment_id = a.appointment_id,
-                patient_img = _context.Users.Where(u => u.user_id == a.appointment_user_id).Select(u => u.user_image).FirstOrDefault(),
-                patient_email = _context.Users.Where(u => u.user_id == a.appointment_user_id).Select(u => u.user_email).FirstOrDefault(),
-                patient_name = _context.Users.Where(u => u.user_id == a.appointment_user_id).Select(u => u.user_fullName).FirstOrDefault(),
-                doctor_img = _context.Users.Where(u => u.user_id == a.appointment_doctor_id).Select(u => u.user_image).FirstOrDefault(),
-                doctor_email = _context.Users.Where(u => u.user_id == a.appointment_doctor_id).Select(u => u.user_email).FirstOrDefault(),
-                doctor_name = _context.Users.Where(u => u.user_id == a.appointment_doctor_id).Select(u => u.user_fullName).FirstOrDefault(),
-                pharmacist_img = _context.Users.Where(u => u.user_id == a.appointment_pharmacist_id).Select(u => u.user_image).FirstOrDefault(),
-                pharmacist_email = _context.Users.Where(u => u.user_id == a.appointment_pharmacist_id).Select(u => u.user_email).FirstOrDefault(),
-                pharmacist_name = _context.Users.Where(u => u.user_id == a.appointment_pharmacist_id).Select(u => u.user_fullName).FirstOrDefault(),
-                appointment_date = a.appointment_time,
-                appointment_status = a.appointment_status
-            }).ToList();
-            return Ok(data);
+                var data = await (from a in _context.Appointments
+                                  join p in _context.Users on a.appointment_user_id equals p.user_id into pGroup
+                                  from patient in pGroup.DefaultIfEmpty()
+                                  join d in _context.Users on a.appointment_doctor_id equals d.user_id into dGroup
+                                  from doctor in dGroup.DefaultIfEmpty()
+                                  join ph in _context.Users on a.appointment_pharmacist_id equals ph.user_id into phGroup
+                                  from pharmacist in phGroup.DefaultIfEmpty()
+                                  select new
+                                  {
+                                      appointment_id = a.appointment_id,
+                                      patient_img = patient.user_image,
+                                      patient_email = patient.user_email,
+                                      patient_name = patient.user_fullName,
+                                      doctor_img = doctor.user_image,
+                                      doctor_email = doctor.user_email,
+                                      doctor_name = doctor.user_fullName,
+                                      pharmacist_img = pharmacist.user_image,
+                                      pharmacist_email = pharmacist.user_email,
+                                      pharmacist_name = pharmacist.user_fullName,
+                                      appointment_date = a.appointment_time,
+                                      appointment_status = a.appointment_status
+                                  }).ToListAsync();
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("get-all-appointment-by-patient")]

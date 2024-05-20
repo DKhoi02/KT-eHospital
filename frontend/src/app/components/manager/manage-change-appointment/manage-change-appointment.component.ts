@@ -66,6 +66,7 @@ export class ManageChangeAppointmentComponent implements OnInit {
   pharmacist_email: string = '';
   pharmacist_name: string = '';
   totalAppointment: number = 0;
+  public fullName: string = '';
 
   constructor(
     private auth: AuthService,
@@ -105,6 +106,7 @@ export class ManageChangeAppointmentComponent implements OnInit {
         (res: any) => {
           this.userModel = res;
           this.imgUrl = this.userModel.user_image;
+          this.fullName = this.userModel.user_fullName;
         },
         (err) => {
           Swal.fire({

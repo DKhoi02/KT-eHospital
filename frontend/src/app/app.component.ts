@@ -13,13 +13,17 @@ export class AppComponent implements OnInit {
   public role!: string;
   public isSHowMainHeader: boolean = true;
   public isSHowGuestHeader: boolean = false;
+  isDevToolsOpened: boolean = false;
+  private broadcastChannel!: BroadcastChannel;
 
   constructor(
     private auth: AuthService,
     private userStore: UserStoreService,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.broadcastChannel = new BroadcastChannel('auth_channel');
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -31,6 +35,33 @@ export class AppComponent implements OnInit {
     });
 
     this.showMainHeader();
+    this.checkDevTools();
+    if (this.isDevToolsOpened) {
+      // window.location.reload();
+    }
+
+    this.broadcastChannel.onmessage = (event) => {
+      if (event.data === 'reloadAllPage') {
+        if (window.location.href.startsWith('http://localhost:4200')) {
+          window.location.reload();
+        }
+      }
+    };
+  }
+
+  checkDevTools(): void {
+    const widthThreshold = 200;
+    const check = () => {
+      this.isDevToolsOpened =
+        window.outerWidth - window.innerWidth > widthThreshold;
+    };
+    check();
+    window.addEventListener('resize', check);
+    setInterval(check, 1000);
+  }
+
+  ngOnDestroy() {
+    this.broadcastChannel.close();
   }
 
   showMainHeader() {
@@ -49,9 +80,9 @@ export class AppComponent implements OnInit {
       currentPath == '' ||
       currentPath == 'about' ||
       currentPath == 'contact' ||
-      currentPath == 'doctor-detail/:email' ||
+      currentPath == 'doctor-detail' ||
       currentPath == 'disease-prediction' ||
-      currentPath == 'view-blog/:id' ||
+      currentPath == 'view-blog' ||
       currentPath == 'blog-search'
     ) {
       this.isSHowMainHeader = true;
